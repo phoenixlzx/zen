@@ -1,0 +1,38 @@
+<%-include header%>
+<div class="navbar navbar-inverse navbar-fixed-top" style="filter:alpha(opacity=75);-moz-opacity:0.75;opacity:0.75;width:100%;display:block;">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="brand" href="/"><%= siteName %></a>
+            <div class="nav-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/archive">Archive</a></li>
+                    <li><a href="/tags">Tags</a></li>
+                    <li><a href="/about">About</a></li>
+                </ul>
+                <ul class="nav navbar-nav pull-right">
+                    <% if(!user) { %>
+                    <li><a href="/login">Login</a></li>
+                    <% if(allowReg) { %>
+                    <li><a href="/reg">Register</a></li>
+                    <% }} else { %>
+                    <li><p class="navbar-text">Welcome back, <a class="navbar-link" href="/u/<%= user.name %>"><%= user.name %></a></p></li>
+                    <% } %>
+                    <li><a href="/rss">RSS</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <% if (locals.success) { %>
+    <div class="alert alert-success">
+        <%= success %>
+    </div>
+    <% } %>
+    <% if (locals.error) { %>
+    <div class="alert alert-danger">
+        <%= error %>
+    </div>
+    <% } %>
+</div>
+<%-include footer%>
