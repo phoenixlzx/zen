@@ -41,7 +41,7 @@
 <div>
     <fieldset>
         <div>
-            <form name="post" method="post">
+            <form name="post" method="post" onchange="window.onbeforeunload = confirmExit;">
                 <br />
                 <input type="text" class='articleContent' name="title"  placeholder="Enter title here."  />
                 <br />
@@ -53,17 +53,16 @@
                     (<a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">Need help?</a>) </p>
                 <textarea name="post" class='span12' style="min-height: 350px;"></textarea>
                 <br />
-                <input type="submit" class="btn btn-primary" value="Post" />
+                <input type="submit" class="btn btn-primary" value="Post" onclick="window.onbeforeunload = null;" />
             </form>
         </div>
     </fieldset>
 </div>
 </div>
 <script type="text/javascript">
-    function closeEditorWarning(){
+    function confirmExit(){
         return 'You have entered data on this page.\n' +
                 'If you are going to leave this page, your unsaved changes will be lost.';
     }
-    window.onbeforeunload = closeEditorWarning;
 </script>
 <%-include footer%>
