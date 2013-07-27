@@ -9,10 +9,11 @@
     "express": "3.3.4",
     "ejs": "*",
     "less-middleware": "*",
-    "mongodb":"*",
-    "connect-mongo":"*",
-    "connect-flash":"*",
-    "markdown":"*",
-    "node-validator": "*"
+    "mongodb": "*",
+    "connect-mongo": "*",
+    "connect-flash": "*",
+    "markdown": "*",
+    "validator": "*",
+    "rss": "*"
   }
 }

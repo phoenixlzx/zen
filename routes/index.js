@@ -3,7 +3,8 @@ var crypto = require('crypto'),
     Post = require('../models/post.js'),
     config = require('../config.js'),
     check = require('validator').check,
-    sanitize = require('validator').sanitize;
+    sanitize = require('validator').sanitize,
+    RSS = require('rss');
 
 module.exports = function(app) {
     // Get homepage.
@@ -273,6 +274,39 @@ module.exports = function(app) {
                 error: req.flash('error').toString()
             });
         });
+    });
+
+    app.get('/rss', function(req, res) {
+        var feed = new RSS({
+            title: 'RSS - ' + config.siteName,
+            author: '',
+            date: '',
+            discription: '',
+            url: config.url,
+            feed_url: config.url + '/rss',
+            pubDate: new Date()
+        });
+
+        var xml = '';
+
+        Post.getTen(null, 1, function(err, posts){
+            if(err){
+                posts = [];
+            }
+            posts.forEach(function(post, index) {
+                feed.item({
+                    title:  post.title,
+                    discription: post.content,
+                    url: config.url + '/u/' + post.name + '/' + post.time.day + '/' + post.title,
+                    author: post.name,
+                    date: post.time.date
+                });
+                xml = feed.xml();
+            });
+            // console.log(xml);
+            res.send(xml);
+        });
+
     });
 
     function checkLogin(req, res, next) {

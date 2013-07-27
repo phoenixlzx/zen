@@ -5,6 +5,7 @@ module.exports={
     host:'localhost',
 
     // Site configuration.
+    url: 'http://www.example.com',
     siteName: 'Site Name',
     tagLine: 'Site tagline',
     disqus: 'DQ_ID',
