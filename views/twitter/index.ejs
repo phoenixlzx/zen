@@ -17,7 +17,7 @@
                     <li><p class="navbar-text">Welcome back,
                         <a class="navbar-link" href="/u/<%= user.name %>"><%= user.name %></a>. </p></li>
                     <li><a class="navbar-link" href="/post-new">Post new</a></li>
-                    <li><a class="navbar-link" href="/me">My posts</a></li>
+                    <li><a class="navbar-link" href="/u/<%= user.name %>">My posts</a></li>
                     <li><a class="navbar-link" href="/logout">Log out</a></li>
                     <% } %>
                     <li><a class="navbar-link" href="/rss"><strong>RSS</strong></a></li>
@@ -45,7 +45,7 @@
         </div>
         <div class="span10" style="margin-left: 45px;">
             <div class="row">
-                <div class="span7">
+                <div class="span9">
                     <a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>"><h2 style="display: inline;"><%= post.title %></h2></a>
                     &nbsp;&nbsp;&nbsp;<small>by <a href="/u/<%= post.name %>"><%= post.name %></a></small>
                 </div>
@@ -61,7 +61,7 @@
                     Views <span class="badge badge-important"><%= post.views %></span>
                     <br />
                 </div>
-                <div class="span9" style="padding-left: 20px;">
+                <div class="span10" style="padding-left: 20px;">
                     <br />
                     <%- post.content %>
                 </div>
