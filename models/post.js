@@ -1,5 +1,5 @@
 var mongodb = require('./db.js'),
-    var ghm = require("github-flavored-markdown");
+    ghm = require("github-flavored-markdown");
 
 function Post(name, avatar, title, tags, content) {
     this.name = name;
