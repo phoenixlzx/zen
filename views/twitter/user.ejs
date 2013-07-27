@@ -9,8 +9,17 @@
                     <li><a href="/tags">Tags</a></li>
                 </ul>
                 <ul class="nav navbar-nav pull-right">
-                    <li class="active"><a class="navbar-link" href="/login">Login</a></li>
+                    <% if(!user) { %>
+                    <li><a href="/login">Login</a></li>
+                    <% if(allowReg) { %>
                     <li><a href="/reg">Register</a></li>
+                    <% }} else { %>
+                    <li><p class="navbar-text">Welcome back,
+                        <a class="navbar-link" href="/u/<%= user.name %>"><%= user.name %></a>. </p></li>
+                    <li><a class="navbar-link" href="/post-new">Post new</a></li>
+                    <li><a class="navbar-link" href="/me">My posts</a></li>
+                    <li><a class="navbar-link" href="/logout">Log out</a></li>
+                    <% } %>
                     <li><a class="navbar-link" href="/rss"><strong>RSS</strong></a></li>
                 </ul>
             </div>
@@ -31,29 +40,24 @@
     <div>
         <ul class="breadcrumb">
             <li><a href="/">Home</a> <span class="divider">/</span></li>
-            <li class="active">Login</li>
+            <li class="active">User: <%= user.name %></li>
         </ul>
     </div>
     <div>
-        <form method="post">
-            <fieldset>
-                <div class="control-group">
-                    <label class="control-label" for="username">Username</label>
-                    <div class="controls">
-                        <input type="text" class="input-xlarge" id="username" name="username">
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label" for="password">Password</label>
-                    <div class="controls">
-                        <input type="password" class="input-xlarge" id="password" name="password">
-                    </div>
-                </div>
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-primary">Login</button>
-                </div>
-            </fieldset>
-        </form>
+    <fieldset>
+        <div>
+            <% posts.forEach(function(post, index){ %>
+            <p><h2><a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>"><%= post.title %></a></h2></p>
+            <p>
+                Author: <a href="/u/<%= post.name %>"><%= post.name %></a> |
+                Date: <%= post.time.minute %>
+            </p>
+            <p><%- post.post %></p>
+            <p>Views: <%= post.views %></p>
+            <% }) %>
+        </div>
+    </fieldset>
     </div>
+    <%-include pagination%>
 </div>
 <%-include footer%>

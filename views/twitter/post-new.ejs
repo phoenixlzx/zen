@@ -1,0 +1,69 @@
+<%-include header%>
+<div class="navbar navbar-inverse navbar-fixed-top" style="filter:alpha(opacity=75);-moz-opacity:0.75;opacity:0.75;width:100%;display:block;">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="brand" href="/"><%= siteName %></a>
+            <div class="nav-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/archive">Archive</a></li>
+                    <li><a href="/tags">Tags</a></li>
+                    <li><a href="/about">About</a></li>
+                </ul>
+                <ul class="nav navbar-nav pull-right">
+                    <li><p class="navbar-text">Welcome back,
+                        <a class="navbar-link" href="/u/<%= user.name %>"><%= user.name %></a>. </p></li>
+                    <li class="active"><a class="navbar-link" href="/post-new">Post new</a></li>
+                    <li><a class="navbar-link" href="/me">My posts</a></li>
+                    <li><a class="navbar-link" href="/logout">Log out</a></li>
+                    <li><a class="navbar-link" href="/rss"><strong>RSS</strong></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <% if (locals.success) { %>
+    <div class="alert alert-success">
+        <%= success %>
+    </div>
+    <% } %>
+    <% if (locals.error) { %>
+    <div class="alert alert-danger">
+        <%= error %>
+    </div>
+    <% } %>
+    <div>
+        <ul class="breadcrumb">
+            <li><a href="/">Home</a> <span class="divider">/</span></li>
+            <li class="active">Post new</li>
+        </ul>
+    </div>
+<div>
+    <fieldset>
+        <div>
+            <form name="post" method="post">
+                <br />
+                <input type="text" class='articleContent' name="title"  placeholder="Enter title here."  />
+                <br />
+                <input type="text" name="tag1" class='input-mini' placeholder="Tag 1" />
+                <input type="text" name="tag2" class='input-mini' placeholder="Tag 2" />
+                <input type="text" name="tag3" class='input-mini' placeholder="Tag 3" />
+                <br />
+                <p>Post content goes here. Markdown is supported.
+                    (<a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">Need help?</a>) </p>
+                <textarea name="post" class='span12' style="min-height: 350px;"></textarea>
+                <br />
+                <input type="submit" class="btn btn-primary" value="Post" />
+            </form>
+        </div>
+    </fieldset>
+</div>
+</div>
+<script type="text/javascript">
+    function closeEditorWarning(){
+        return 'You have entered data on this page.\n' +
+                'If you are going to leave this page, your unsaved changes will be lost.';
+    }
+    window.onbeforeunload = closeEditorWarning;
+</script>
+<%-include footer%>

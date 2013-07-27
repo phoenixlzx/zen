@@ -15,7 +15,7 @@ module.exports = function(app) {
             }
             // console.log(req.session.user);
             res.render('index',{
-                title: config.siteName + ' - Home',
+                title: 'Home - ' + config.siteName,
                 siteName: config.siteName,
                 tagLine: config.tagLine,
                 allowReg: config.allowReg,
@@ -36,7 +36,7 @@ module.exports = function(app) {
             return res.redirect('/');
         }
         res.render('reg',{
-            title: config.siteName + ' - Register',
+            title: 'Register - ' + config.siteName,
             siteName: config.siteName,
             tagLine: config.tagLine,
             allowReg: config.allowReg,
@@ -104,7 +104,7 @@ module.exports = function(app) {
     // Login pages
     app.get('/login', checkNotLogin, function(req,res){
         res.render('login',{
-            title: config.siteName + ' - Login',
+            title: 'Login - ' + config.siteName,
             siteName: config.siteName,
             tagLine: config.tagLine,
             allowReg: config.allowReg,
@@ -131,28 +131,31 @@ module.exports = function(app) {
         });
     });
 
-    app.get('/post', checkLogin, function(req,res) {
-        res.render('post',{title:'New post',
+    app.get('/post-new', checkLogin, function(req,res) {
+        res.render('post-new',{
+            title:'Post new - ' + config.siteName,
+            siteName: config.siteName,
+            tagLine: config.tagLine,
             user: req.session.user,
             success: req.flash('success').toString(),
             error: req.flash('error').toString()
         });
     });
-    app.post('/post', checkLogin, function(req, res) {
+    app.post('/post-new', checkLogin, function(req, res) {
         var currentUser = req.session.user,
         // TODO split tags by ','
             tags = [{"tag":req.body.tag1},{"tag":req.body.tag2},{"tag":req.body.tag3}];
         var md5 = crypto.createHash('md5'),
             email_MD5 = md5.update(currentUser.email.toLowerCase()).digest('hex'),
-            head = "http://www.gravatar.com/avatar/" + email_MD5 + "?s=64",
-            post = new Post(currentUser.name, head, req.body.title, tags, req.body.post);
+            avatar = "http://www.gravatar.com/avatar/" + email_MD5 + "?s=64",
+            post = new Post(currentUser.name, avatar, req.body.title, tags, req.body.post);
         // console.log(currentUser.name);
         post.save(function(err) {
             if(err){
                 req.flash('error', err);
                 return res.redirect('/');
             }
-            req.flash('success', 'Posted.');
+            req.flash('success', 'Posted successfully.');
             res.redirect('/');
         });
     });
@@ -161,6 +164,115 @@ module.exports = function(app) {
         req.session.user = null;
         req.flash('success','Successfully logged out.');
         res.redirect('/');
+    });
+
+    app.get('/archive', function(req,res){
+        Post.getArchive(function(err, posts){
+            if(err){
+                req.flash('error',err);
+                return res.redirect('/');
+            }
+            res.render('archive',{
+                title: 'Archive - ' + config.siteName,
+                siteName: config.siteName,
+                tagLine: config.tagLine,
+                allowReg: config.allowReg,
+                user: req.session.user,
+                posts: posts,
+                postsLen: posts.length,
+                success: req.flash('success').toString(),
+                error: req.flash('error').toString()
+            });
+        });
+    });
+
+    app.get('/tags', function(req,res){
+        Post.getTags(function(err, posts){
+            if(err){
+                req.flash('error', err);
+                return res.redirect('/');
+            }
+            res.render('tags',{
+                title: 'Tags - ' + config.siteName,
+                siteName: config.siteName,
+                tagLine: config.tagLine,
+                allowReg: config.allowReg,
+                user: req.session.user,
+                posts: posts,
+                success: req.flash('success').toString(),
+                error: req.flash('error').toString()
+            });
+        });
+    });
+
+    app.get('/tags/:tag', function(req,res){
+        Post.getTag(req.params.tag, function(err, posts){
+            if(err){
+                req.flash('error', err);
+                return res.redirect('/');
+            }
+            res.render('tag',{
+                title: 'Tag: ' + req.params.tag + ' - ' + config.siteName,
+                siteName: config.siteName,
+                tagLine: config.tagLine,
+                allowReg: config.allowReg,
+                user: req.session.user,
+                posts: posts,
+                tag: req.params.tag,
+                success: req.flash('success').toString(),
+                error: req.flash('error').toString()
+            });
+        });
+    });
+
+    app.get('/u/:name', function(req,res){
+        var page = req.query.p?parseInt(req.query.p):1;
+        // check if user exists.
+        User.get(req.params.name, function(err, user){
+            if(!user){
+                req.flash('error','User not exist.');
+                return res.redirect('/');
+            }
+            // query for top 10 posts by 'user'.
+            Post.getTen(user.name, page, function(err, posts){
+                if(err){
+                    req.flash('error',err);
+                    return res.redirect('/');
+                }
+                res.render('user',{
+                    title: 'User: '+ req.params.name + ' - ' + config.siteName,
+                    siteName: config.siteName,
+                    tagLine: config.tagLine,
+                    allowReg: config.allowReg,
+                    user: req.session.user,
+                    posts: posts,
+                    page: page,
+                    postsLen: posts.length,
+                    success: req.flash('success').toString(),
+                    error: req.flash('error').toString()
+                });
+            });
+        });
+    });
+
+    app.get('/u/:name/:day/:title', function(req,res){
+        Post.getOne(req.params.name, req.params.day, req.params.title, function(err, post){
+            if(err){
+                req.flash('error',err);
+                return res.redirect('/');
+            }
+            res.render('article',{
+                title: req.params.title + ' - ' + config.siteName,
+                siteName: config.siteName,
+                tagLine: config.tagLine,
+                allowReg: config.allowReg,
+                user: req.session.user,
+                post: post,
+                disqus: config.disqus,
+                success: req.flash('success').toString(),
+                error: req.flash('error').toString()
+            });
+        });
     });
 
     function checkLogin(req, res, next) {

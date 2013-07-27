@@ -37,39 +37,32 @@
         <%= error %>
     </div>
     <% } %>
-
-    <% posts.forEach(function(post, index) { %>
-    <div class="row">
-        <div class="pull-left" style="margin-top: 20px;">
-            <a class="thumbnail" href="/u/<%= post.name %>"><img src="<%= post.avatar %>" /></a>
+<div>
+    <ul class="breadcrumb">
+        <li><a href="/">Home</a> <span class="divider">/</span></li>
+        <li class="active">Post: <%= post.name %></li>
+    </ul>
+</div>
+<div>
+    <fieldset>
+        <div class='publish'>
+            <p class="info">
+                Author: <a href="/u/<%= post.name %>"><%= post.name %></a> |
+                Date: <%= post.time.minute %> |
+                Tags:
+                <% post.tags.forEach(function(tag, index){ %>
+                <% if(tag.tag){ %>
+                <a href="/tags/<%= tag.tag %>"><span class="label label-info"><%= tag.tag %></span></a>
+                <% } %>
+                <% }) %>
+                | Views: <span class="badge badge-important"><%= post.views %></span>
+            </p>
+            <div><%- post.content %></div>
         </div>
-        <div class="span10" style="margin-left: 45px;">
-            <div class="row">
-                <div class="span7">
-                    <a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>"><h2 style="display: inline;"><%= post.title %></h2></a>
-                    &nbsp;&nbsp;&nbsp;<small>by <a href="/u/<%= post.name %>"><%= post.name %></a></small>
-                </div>
-                <div class="span5">
-                    <% if(post.tags){ %>
-                    Tags
-                    <% post.tags.forEach(function(tag, index){ %>
-                    <% if(tag.tag){ %>
-                    <a href="/tags/<%= tag.tag %>"><span class="label label-info"><%= tag.tag %></span></a>
-                    <% } %>
-                    <% }) }%>
-                    <br />
-                    Views <span class="badge badge-important"><%= post.views %></span>
-                    <br />
-                </div>
-                <div class="span9" style="padding-left: 20px;">
-                    <br />
-                    <%- post.content %>
-                </div>
-            </div>
+        <div>
+            <%-include comment%>
         </div>
-    </div>
-    <hr />
-    <% }) %>
-    <%-include pagination%>
+    </fieldset>
+</div>
 </div>
 <%-include footer%>

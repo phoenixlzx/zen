@@ -1,0 +1,51 @@
+<%- include header %>
+<div class="navbar navbar-inverse navbar-fixed-top" style="filter:alpha(opacity=75);-moz-opacity:0.75;opacity:0.75;width:100%;display:block;">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="brand" href="/"><%= siteName %></a>
+            <div class="nav-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/archive">Archive</a></li>
+                    <li class="active"><a href="/tags">Tags</a></li>
+                </ul>
+                <ul class="nav navbar-nav pull-right">
+                    <% if(!user) { %>
+                    <li><a href="/login">Login</a></li>
+                    <% if(allowReg) { %>
+                    <li><a href="/reg">Register</a></li>
+                    <% }} else { %>
+                    <li><p class="navbar-text">Welcome back,
+                        <a class="navbar-link" href="/u/<%= user.name %>"><%= user.name %></a>. </p></li>
+                    <li><a class="navbar-link" href="/post-new">Post new</a></li>
+                    <li><a class="navbar-link" href="/me">My posts</a></li>
+                    <li><a class="navbar-link" href="/logout">Log out</a></li>
+                    <% } %>
+                    <li><a class="navbar-link" href="/rss"><strong>RSS</strong></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+<div>
+    <div>
+        <ul class="breadcrumb">
+            <li><a href="/">Home</a> <span class="divider">/</span></li>
+            <li><a href="/tags">Tags</a> <span class="divider">/</span></li>
+            <li class="active">Tag: <%= tag %></li>
+        </ul>
+    </div>
+</div>
+<fieldset>
+    <ul class="unstyled">
+        <% var lastYear=0 %>
+        <% posts.forEach(function(post, index){ %>
+        <% if(lastYear!=post.time.year){ %>
+        <li><h3><%= post.time.year %></h3></li>
+        <% lastYear=post.time.year } %>
+        <li><time><%= post.time.day %></time> <a style="text-decoration: none;" href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>"><%= post.title %></a></li>
+        <% }) %>
+    </ul>
+</fieldset>
+</div>
+<%- include footer %>

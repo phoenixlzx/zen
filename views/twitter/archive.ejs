@@ -5,7 +5,7 @@
             <a class="brand" href="/"><%= siteName %></a>
             <div class="nav-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="/archive">Archive</a></li>
+                    <li class="active"><a href="/archive">Archive</a></li>
                     <li><a href="/tags">Tags</a></li>
                 </ul>
                 <ul class="nav navbar-nav pull-right">
@@ -37,39 +37,24 @@
         <%= error %>
     </div>
     <% } %>
-
-    <% posts.forEach(function(post, index) { %>
-    <div class="row">
-        <div class="pull-left" style="margin-top: 20px;">
-            <a class="thumbnail" href="/u/<%= post.name %>"><img src="<%= post.avatar %>" /></a>
-        </div>
-        <div class="span10" style="margin-left: 45px;">
-            <div class="row">
-                <div class="span7">
-                    <a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>"><h2 style="display: inline;"><%= post.title %></h2></a>
-                    &nbsp;&nbsp;&nbsp;<small>by <a href="/u/<%= post.name %>"><%= post.name %></a></small>
-                </div>
-                <div class="span5">
-                    <% if(post.tags){ %>
-                    Tags
-                    <% post.tags.forEach(function(tag, index){ %>
-                    <% if(tag.tag){ %>
-                    <a href="/tags/<%= tag.tag %>"><span class="label label-info"><%= tag.tag %></span></a>
-                    <% } %>
-                    <% }) }%>
-                    <br />
-                    Views <span class="badge badge-important"><%= post.views %></span>
-                    <br />
-                </div>
-                <div class="span9" style="padding-left: 20px;">
-                    <br />
-                    <%- post.content %>
-                </div>
-            </div>
-        </div>
+    <div>
+        <ul class="breadcrumb">
+            <li><a href="/">Home</a> <span class="divider">/</span></li>
+            <li class="active">Archive</li>
+        </ul>
     </div>
-    <hr />
-    <% }) %>
-    <%-include pagination%>
+    <div>
+    <fieldset>
+        <ul class="unstyled">
+            <% var lastYear=0 %>
+            <% posts.forEach(function(post, index){ %>
+            <% if(lastYear!=post.time.year){ %>
+            <li><h3><%= post.time.year %></h3></li>
+            <% lastYear=post.time.year } %>
+            <li><time><%= post.time.day %></time> <a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>"><%= post.title %></a></li>
+            <% }) %>
+        </ul>
+    </fieldset>
+    </div>
 </div>
 <%-include footer%>
