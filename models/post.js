@@ -1,5 +1,5 @@
 var mongodb = require('./db.js'),
-    ghm = require("github-flavored-markdown");
+    markdown = require("markdown");
 
 function Post(name, avatar, title, tags, content) {
     this.name = name;
@@ -28,7 +28,7 @@ Post.prototype.save = function(callback) {
         title: this.title,
         time: time,
         tags: this.tags,
-        content: ghm.parse(this.content),  // parse MD to HTML while insert into DB. WARNING: will this cause security problems?
+        content: markdown.toHTML(this.content),  // parse MD to HTML while insert into DB. WARNING: will this cause security problems?
         views: 0
     };
 

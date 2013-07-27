@@ -12,7 +12,7 @@
     "mongodb": "*",
     "connect-mongo": "*",
     "connect-flash": "*",
-    "github-flavored-markdown": "*",
+    "markdown": "*",
     "validator": "*",
     "rss": "*"
   }
