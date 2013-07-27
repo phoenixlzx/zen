@@ -4,6 +4,8 @@ Zen is a blog app using Node.js & MongoDB, inspired by [yang6233562/y](https://g
 
 Pull requests are welcome!
 
+Demo: [Zenblog](http://zen.phoenixlzx.com:3000)
+
 #### TODO
 
 * Better theme support (and more themes!)
