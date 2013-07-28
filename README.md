@@ -8,9 +8,9 @@ Demo: [Zenblog](http://zen.phoenixlzx.com:3000)
 
 #### Usage
 
-1. Install Node.js & MongoDB on your server.
+1. Install Node.js & MongoDB on your server. Note: Install Node.js via [visionmedia/n](https://github.com/visionmedia/n) is recommended, as some distro have old Nodejs versions.
 
-2. `git clone https://github.com/phoenixlzx/zen.git && cd zen`
+2. `git clone https://github.com/phoenixlzx/zen.git && cd zen && npm install`
 
 3. Edit config.js
 
