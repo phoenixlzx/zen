@@ -6,6 +6,21 @@ Pull requests are welcome!
 
 Demo: [Zenblog](http://zen.phoenixlzx.com:3000)
 
+#### Usage
+
+1. Install Node.js & MongoDB on your server.
+
+2. `git clone https://github.com/phoenixlzx/zen.git && cd zen`
+
+3. Edit config.js
+
+4. `node app.js`
+
+5. Done!
+
+**ATTENTION** You **MUST** leave `allowReg` to `true` before you register at least 1 user. You could set it to `false` after you have successfully registered and restart the app.
+
+
 #### TODO
 
 * Better theme support (and more themes!)
