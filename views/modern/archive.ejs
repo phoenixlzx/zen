@@ -1,0 +1,16 @@
+<%-include header%>
+<div class="page secondary" style="width: 900px; margin: auto; padding-top: 20px;">
+    <div class="page-region">
+        <div class="page-region-content">
+            <ul class="unstyled">
+                <% var lastYear=0 %>
+                <% posts.forEach(function(post, index) { %>
+                <% if(lastYear!=post.time.year){ %>
+                <li><h3><%= post.time.year %></h3></li>
+                <% lastYear=post.time.year } %>
+                <li><time><%= post.time.day %></time> <a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>"><%= post.title %></a></li>
+                <% }) %>
+            </ul>
+        </div>
+    </div>
+<%-include footer%>

@@ -33,8 +33,9 @@ module.exports = function(app) {
     // Registration.
     app.get('/reg', checkNotLogin, function(req, res) {
         if (!config.allowReg) {
-            // req.flash('Registration is currently not allowed.');
-            return res.redirect('/');
+            res.redirect('/');
+            req.flash('Registration is currently not allowed.');
+            return;
         }
         res.render('reg',{
             title: 'Register - ' + config.siteName,

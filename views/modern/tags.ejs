@@ -1,0 +1,20 @@
+<%-include header%>
+<div class="page" style="width: 900px; margin-top: 40px; margin-bottom: 40px; padding-left: 20px; padding-right: 20px; background-color: #CBCCCC;">
+    <div class="page-header" style="border-bottom: 1px #2D89EF solid; padding-bottom: 20px;">
+        <div class="page-header-content">
+            <h1>TAGs</h1>
+        </div>
+    </div>
+    <div class="page-region">
+        <div class="page-region-content">
+            <div>
+                <% posts.forEach(function(tag, index){ %>
+                <% if(tag){ %>
+                <a href="/tags/<%= tag %>"><span class="label inverse"><%= tag %></span>&nbsp;</a>
+                <% } %>
+                <% }) %>
+            </div>
+        </div>
+    </div>
+</div>
+<%-include footer%>

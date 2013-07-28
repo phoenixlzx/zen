@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/themes/modern/stylesheets/modern.css"/>
+    <link rel="stylesheet" href="/themes/modern/stylesheets/modern-responsive.css"/>
+    <link rel="stylesheet" href="/themes/modern/stylesheets/theme-dark.css"/>
+    <link rel="stylesheet" href="/themes/modern/stylesheets/highlight-vs.css"/>
+    <script type="text/javascript" src="/themes/modern/javascripts/highlight.js"></script>
+</head>
+<body class="metrouicss" style="background-color: #1D1D1D;">
+<div class="page">
+    <div class="nav-bar">
+        <div class="nav-bar-inner padding10">
+            <a href="/"><span class="element brand"><%= siteName %></span></a>
+            <div class="divider"></div>
+            <ul class="menu">
+                <li><a href="/archive">Archive</a></li>
+                <li><a href="/tags">Tags</a></li>
+                <li><a href="/rss">RSS</a></li>
+            </ul>
+            <ul class="menu place-right">
+                <% if(!user) { %>
+                <li><a href="/login">Login</a></li>
+                <% if(allowReg) { %>
+                <li><a href="/reg">Register</a></li>
+                <% }} else { %>
+                <li><a href="/u/<%= user.name %>"><%= user.name %></a> &nbsp;</li>
+                <li><a href="/post-new">Post new</a></li>
+                <li><a href="/u/<%= user.name %>">My posts</a></li>
+                <li><a href="/logout">Log out</a></li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+</div>
+<% if (locals.success) { %>
+<div class="info-bar">
+    <%= success %>
+</div>
+<% } %>
+<% if (locals.error) { %>
+<div class="error-bar">
+    <%= error %>
+</div>
+<% } %>

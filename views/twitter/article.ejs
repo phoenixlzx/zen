@@ -40,13 +40,14 @@
 <div>
     <ul class="breadcrumb">
         <li><a href="/">Home</a> <span class="divider">/</span></li>
-        <li class="active">Post: <%= post.name %></li>
+        <li><a href="/u/<%= post.name %>"><%= post.name %></a> <span class="divider">/</span></li>
+        <li class="active"><%= post.title %></li>
     </ul>
 </div>
 <div>
     <fieldset>
-        <div class='publish'>
-            <p class="info">
+        <div>
+            <p>
                 Author: <a href="/u/<%= post.name %>"><%= post.name %></a> |
                 Date: <%= post.time.minute %> |
                 Tags:
