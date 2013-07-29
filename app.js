@@ -74,6 +74,7 @@ var mongodb = require('./models/db.js'),
                             if(err) {
                                 return callback(err);
                             }
+                            mongodb.close();
                         });
                     }
                 });
