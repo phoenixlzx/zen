@@ -35,31 +35,29 @@
     <div>
         <ul class="breadcrumb">
             <li><a href="/">Home</a> <span class="divider">/</span></li>
-            <li class="active">Post new</li>
+            <li class="active">Edit: <%= post.title %></li>
         </ul>
     </div>
-<div>
-    <fieldset>
-        <div>
-            <form name="post" method="post" onchange="window.onbeforeunload = confirmExit;">
-                <br />
-                <input type="text" name="title" class="input-xlarge" placeholder="Enter title here."  />
-                <br />
-                <input type="text" name="tag" class='input-xlarge' placeholder="Tags, split by ', ' (a comma AND a space)." />
-                <br />
-                <p>Post content goes here. Markdown is supported.
-                    (<a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">Need help?</a>) </p>
-                <textarea name="post" class='span12' style="min-height: 350px;"></textarea>
-                <br />
-                <input type="submit" class="btn btn-primary" value="Post" onclick="window.onbeforeunload = null;" />
-            </form>
-        </div>
-    </fieldset>
-</div>
+    <div>
+        <fieldset>
+            <div>
+                <form name="post" method="post" onchange="window.onbeforeunload = confirmExit;">
+                    <br />
+                    <input type="text" name="title" value="<%= post.title %>"  />
+                    <br />
+                    <input type="text" name="tag" class='input' value="<%= tags %>" />
+                    <br />
+                    <textarea name="post" class='span12' style="min-height: 350px;"><%- post.content %></textarea>
+                    <br />
+                    <input type="submit" class="btn btn-primary" value="Save" onclick="window.onbeforeunload = null;" />
+                </form>
+            </div>
+        </fieldset>
+    </div>
 </div>
 <script type="text/javascript">
     function confirmExit(){
-        return 'You have entered data on this page.\n' +
+        return 'You have make changes on this page.\n' +
                 'If you are going to leave this page, your unsaved changes will be lost.';
     }
 </script>

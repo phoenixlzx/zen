@@ -3,7 +3,7 @@
 <div class="page" style="width: 900px; margin-top: 40px; margin-bottom: 40px; padding-left: 20px; padding-right: 20px; background-color: #CBCCCC;">
     <div class="page-header" style="border-bottom: 1px #2D89EF solid; padding-bottom: 20px;">
         <div class="page-header-content">
-            <h1>Post new</h1>
+            <h1>Edit: <%= post.title %></h1>
         </div>
     </div>
     <div class="page-region">
@@ -12,15 +12,19 @@
                 <form name="post" method="post" onchange="window.onbeforeunload = confirmExit;">
                     <br />
                     <div class="input-control text span4">
-                        <input type="text" name="title" placeholder="Enter title here."  />
+                        <input type="text" name="title" value="<%= post.title %>"  />
                     </div>
-                    <div class="input-control text span4">
-                        <input type="text" name="tag" placeholder="Tags, split by comma AND a space."/>
+                    <div class="span3">
+                        <div class="input-control text span3">
+                            <input type="text" name="tag" value="<%= tags %>" />
+                        </div>
                     </div>
                     <p>Post content goes here. Markdown is supported.
                         (<a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">Need help?</a>) </p>
                     <div class="input-control textarea">
-                        <textarea name="post" style="min-height: 350px;"></textarea>
+                        <textarea name="post" style="min-height: 350px;">
+                            <%- post.content %>
+                        </textarea>
                     </div>
                     <br />
                     <input type="submit" value="Post" onclick="window.onbeforeunload = null;" />

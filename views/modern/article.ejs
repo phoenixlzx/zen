@@ -10,7 +10,7 @@
             <div style="border-bottom: 1px #2D89EF solid;">
                 <%- post.content %>
             </div>
-            <div>
+            <div class="span5">
                 Author: <a href="/u/<%= post.name %>"><%= post.name %></a>
                 <br />
                 Date: <%= post.time.minute %>
@@ -24,8 +24,23 @@
                 <% } %>
                 <% }) %>
             </div>
+            <div class="span3">
+                <% if(user.name === post.name) { %>
+                <a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>/edit" style="text-decoration: none;">
+                    <button class="default" type="button">Edit</button>
+                </a>
+                <button class="bg-color-red" type="button" onclick="confirmDelete()">Delete</button>
+                <% } %>
+            </div>
         </div>
         <%-include comment%>
     </div>
 </div>
+<script type="text/javascript">
+    function confirmDelete() {
+        if (confirm("Do you really want to delete this post?\nThis operation cannot be recover.")) {
+            window.location = "/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>/delete";
+        }
+    }
+</script>
 <%-include footer%>

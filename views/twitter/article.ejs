@@ -47,17 +47,28 @@
 <div>
     <fieldset>
         <div>
-            <p>
-                Author: <a href="/u/<%= post.name %>"><%= post.name %></a> |
-                Date: <%= post.time.minute %> |
-                Tags:
-                <% post.tags.forEach(function(tag, index){ %>
-                <% if(tag.tag){ %>
-                <a href="/tags/<%= tag.tag %>"><span class="label label-info"><%= tag.tag %></span></a>
-                <% } %>
-                <% }) %>
-                | Views: <span class="badge badge-important"><%= post.views %></span>
-            </p>
+            <div class="row">
+                <div class="span8">
+                    Author: <a href="/u/<%= post.name %>"><%= post.name %></a> |
+                    Date: <%= post.time.minute %> |
+                    Tags:
+                    <% post.tags.forEach(function(tag, index){ %>
+                    <% if(tag.tag){ %>
+                    <a href="/tags/<%= tag.tag %>"><span class="label label-info"><%= tag.tag %></span></a>
+                    <% } %>
+                    <% }) %>
+                    | Views: <span class="badge badge-important"><%= post.views %></span>
+                </div>
+                <div class="span2 pull-right">
+                    <% if(user.name === post.name) { %>
+                    <a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>/edit" style="text-decoration: none;">
+                        <button class="btn btn-small" type="button">Edit</button>
+                    </a>
+                    <button class="btn btn-danger btn-small" type="button" onclick="confirmDelete()">Delete</button>
+                    <% } %>
+                </div>
+            </div>
+            <hr />
             <div><%- post.content %></div>
         </div>
         <div>
@@ -66,4 +77,11 @@
     </fieldset>
 </div>
 </div>
+<script type="text/javascript">
+    function confirmDelete() {
+        if (confirm("Do you really want to delete this post?\nThis operation cannot be recover.")) {
+            window.location = "/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>/delete";
+        }
+    }
+</script>
 <%-include footer%>

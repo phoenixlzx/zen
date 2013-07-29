@@ -146,7 +146,15 @@ module.exports = function(app) {
     app.post('/post-new', checkLogin, function(req, res) {
         var currentUser = req.session.user,
         // TODO split tags by ','
-            tags = [{"tag":req.body.tag1},{"tag":req.body.tag2},{"tag":req.body.tag3}];
+            tag = req.body.tag.split(', '),
+            tags = [];
+        tag.forEach(function(tag) {
+                if(tag) {
+                    tags.push({"tag":tag});
+                }
+        });
+        // console.log(tags);
+            // tags = [{"tag":req.body.tag1},{"tag":req.body.tag2},{"tag":req.body.tag3}];
         var md5 = crypto.createHash('md5'),
             email_MD5 = md5.update(currentUser.email.toLowerCase()).digest('hex'),
             avatar = "http://www.gravatar.com/avatar/" + email_MD5 + "?s=64",
@@ -160,6 +168,84 @@ module.exports = function(app) {
             req.flash('success', 'Posted successfully.');
             res.redirect('/');
         });
+    });
+
+    app.get('/u/:name/:day/:title/edit', checkLogin, function(req,res){
+        if (req.session.user.name != req.params.name) {
+            req.flash('error', "You do not have permission to do this.");
+            return res.redirect('/u/' + req.params.name + '/' + req.params.day + '/' + req.params.title);
+        }
+        Post.getRaw(req.params.name, req.params.day, req.params.title, function(err, post){
+            if(err){
+                req.flash('error',err);
+                return res.redirect('/');
+            }
+            var tags = "";
+            post.tags.forEach(function(tag) {
+                if (tag) {
+                    tags += tag.tag + ", ";
+                }
+            });
+            res.render('edit',{
+                title: req.params.title + ' - ' + config.siteName,
+                siteName: config.siteName,
+                tagLine: config.tagLine,
+                allowReg: config.allowReg,
+                user: req.session.user,
+                post: post,
+                tags: tags,
+                success: req.flash('success').toString(),
+                error: req.flash('error').toString()
+            });
+        });
+    });
+
+    app.post('/u/:name/:day/:title/edit', checkLogin, function(req, res) {
+        if (req.session.user.name != req.params.name) {
+            req.flash('error', "You do not have permission to do this.");
+            return res.redirect('/u/' + req.params.name + '/' + req.params.day + '/' + req.params.title);
+        }
+        var currentUser = req.session.user,
+        // TODO split tags by ','
+            tag = req.body.tag.split(', '),
+            tags = [];
+        // console.log(tag);
+        tag.forEach(function(tag) {
+            if(tag) {
+                tags.push({"tag":tag});
+            }
+        });
+        // console.log(tags);
+        var md5 = crypto.createHash('md5'),
+            email_MD5 = md5.update(currentUser.email.toLowerCase()).digest('hex'),
+            avatar = "http://www.gravatar.com/avatar/" + email_MD5 + "?s=64",
+            post = new Post(currentUser.name, avatar, req.body.title, tags, req.body.post);
+        // console.log(currentUser.name);
+        post.edit(currentUser.name, req.params.day, req.params.title, post, function(err) {
+            if(err){
+                req.flash('error', err);
+                return res.redirect('/');
+            }
+            //console.log(post);
+            req.flash('success', 'Post updated.');
+            res.redirect('/u/' + req.params.name + '/' + req.params.day + '/' + req.params.title);
+        });
+    });
+
+    app.get('/u/:name/:day/:title/delete', checkLogin, function(req, res) {
+        if (req.session.user.name != req.params.name) {
+            req.flash('error', "You do not have permission to do this.");
+            return res.redirect('/u/' + req.params.name + '/' + req.params.day + '/' + req.params.title);
+        }
+        var currentUser = req.session.user;
+        Post.remove(req.params.name, req.params.day, req.params.title, function(err) {
+            if(err) {
+                req.flash('error', err);
+                return res.redirect('/u/' + req.params.name + '/' + req.params.day + '/' + req.params.title);
+            }
+            req.flash('success', 'Post deleted.');
+            res.redirect('/');
+        })
     });
 
     app.get('/logout', checkLogin, function(req, res) {

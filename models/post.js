@@ -28,7 +28,8 @@ Post.prototype.save = function(callback) {
         title: this.title,
         time: time,
         tags: this.tags,
-        content: markdown.toHTML(this.content),  // parse MD to HTML while insert into DB. WARNING: will this cause security problems?
+        // content: markdown.toHTML(this.content),  // parse MD to HTML while insert into DB. WARNING: will this cause security problems?
+        content: this.content,
         views: 0
     };
 
@@ -43,6 +44,57 @@ Post.prototype.save = function(callback) {
                 return callback(err);
             }
             collection.insert(post, {safe: true}, function(err, post) {
+                mongodb.close();
+                callback(null);
+            });
+        });
+    });
+};
+
+Post.prototype.edit = function(name, day, title, post, callback) {
+    mongodb.open(function (err, db) {
+        if (err) {
+            return callback(err);
+        }
+        db.collection('posts', function(err, collection) {
+            if (err) {
+                mongodb.close();
+                return callback(err);
+            }
+            // console.log(post);
+            collection.update({"name":name,"time.day":day,"title":title}, {$set:{
+                "title" : post.title,
+                "tags" : post.tags,
+                "content" : post.content
+            }}, function(err) {
+                if (err) {
+                    // console.log(err);
+                    mongodb.close();
+                    return callback(err);
+                }
+                // console.log(post);
+                mongodb.close();
+                callback(null);
+            });
+        });
+    });
+};
+
+Post.remove = function(name, day, title, callback) {
+    mongodb.open(function(err, db) {
+        if(err) {
+            return callback(err);
+        }
+        db.collection('posts', function(err, collection) {
+            if(err) {
+                mongodb.close();
+                return callback(err);
+            }
+            collection.remove({"name":name, "time.day":day, "title":title}, true, function(err) {
+                if(err) {
+                    mongodb.close();
+                    return callback(err);
+                }
                 mongodb.close();
                 callback(null);
             });
@@ -76,9 +128,9 @@ Post.getTen = function(name, page, callback) {
                 }
                 // Parse Markdown to HTML, if there is security problems
                 // while insert HTML to DB, then use this method. May cause higher load.
-                //docs.forEach(function(doc) {
-                //    doc.post = markdown.toHTML(doc.post);
-                //});
+                docs.forEach(function(doc) {
+                    doc.content = markdown.toHTML(doc.content);
+                });
                 callback(null, docs);
             });
         });
@@ -200,15 +252,39 @@ Post.getOne = function(name, day, title, callback) {
                     callback(err, null);
                 }
                 //解析 markdown 为 html
-                // if(doc){
-                //    doc.post = markdown.toHTML(doc.post);
-                //    doc.comments.forEach(function(comment){
-                //        comment.content = markdown.toHTML(comment.content);
-                //    });
-                // }
+                if(doc){
+                    doc.content = markdown.toHTML(doc.content);
+                }
                 callback(null, doc);//返回特定查询的文章
             });
             collection.update({"name":name,"time.day":day,"title":title},{$inc:{"views":1}}, {w: 0});
+        });
+    });
+};
+
+// Get raw markdown text
+Post.getRaw = function(name, day, title, callback) {
+    mongodb.open(function (err, db) {
+        if (err) {
+            return callback(err);
+        }
+        db.collection('posts', function(err, collection) {
+            if (err) {
+                mongodb.close();
+                return callback(err);
+            }
+            // 根据用户名、发表日期及文章名进行精确查询
+            collection.findOne({"name":name,"time.day":day,"title":title},function (err, doc) {
+                mongodb.close();
+                if (err) {
+                    callback(err, null);
+                }
+                // return raw markdown text
+                // if(doc){
+                //    doc.content = markdown.toHTML(doc.content);
+                // }
+                callback(null, doc);
+            });
         });
     });
 };
