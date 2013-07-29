@@ -3,7 +3,7 @@
         <% if(page-1){ %>
         <li class="prev"><a href="?p=<%= page-1 %>"></a></li>
         <% } %>
-        <% if(postsLen==10){ %>
+        <% if(postsLen>10){ %>
         <li class="next"><a href="?p=<%= page+1 %>"></a></li>
         <% } %>
     </ul>
