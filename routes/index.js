@@ -145,7 +145,6 @@ module.exports = function(app) {
     });
     app.post('/post-new', checkLogin, function(req, res) {
         var currentUser = req.session.user,
-        // TODO split tags by ','
             tag = req.body.tag.split(', '),
             tags = [];
         tag.forEach(function(tag) {
@@ -161,7 +160,7 @@ module.exports = function(app) {
             url = req.body.title;
         } else {
             console.log(req.body.title.indexOf('/'));
-            url = req.body.title.replace('/', '%2F');
+            url = req.body.title.replace(/\//g, '%2F');
             //console.log(url);
         }
         var md5 = crypto.createHash('md5'),
@@ -230,8 +229,7 @@ module.exports = function(app) {
         if (req.body.title.indexOf('/') === -1) {
             newUrl = req.body.title;
         } else {
-            console.log(req.body.title.indexOf('/'));
-            newUrl = req.body.title.replace('/', '%2F');
+            newUrl = req.body.title.replace(/\//g, '%2F');
             //console.log(url);
         }
         var md5 = crypto.createHash('md5'),
@@ -255,7 +253,14 @@ module.exports = function(app) {
             req.flash('error', "You do not have permission to do this.");
             return res.redirect('/u/' + req.params.name + '/' + req.params.day + '/' + req.params.url);
         }
-        var currentUser = req.session.user;
+        var currentUser = req.session.user,
+            newUrl = "";
+        if (req.params.url.indexOf('/') === -1) {
+            newUrl = req.params.url;
+        } else {
+            newUrl = req.params.url.replace(/\//g, '%2F');
+            //console.log(url);
+        }
         Post.remove(req.params.name, req.params.day, req.params.url, function(err) {
             if(err) {
                 req.flash('error', err);
@@ -362,11 +367,19 @@ module.exports = function(app) {
     });
 
     app.get('/u/:name/:day/:url', function(req,res){
-        Post.getOne(req.params.name, req.params.day, req.params.url, function(err, post){
+        var newUrl = "";
+        if (req.params.url.indexOf('/') === -1) {
+            newUrl = req.params.url;
+        } else {
+            newUrl = req.params.url.replace(/\//g, '%2F');
+            //console.log(url);
+        }
+        Post.getOne(req.params.name, req.params.day, newUrl, function(err, post){
             if(err){
                 req.flash('error',err);
                 return res.redirect('/');
             }
+            console.log(post);
             res.render('article',{
                 title: post.title + ' - ' + config.siteName,
                 siteName: config.siteName,
