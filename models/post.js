@@ -43,9 +43,12 @@ Post.prototype.save = function(callback) {
                 mongodb.close();
                 return callback(err);
             }
-            collection.insert(post, {safe: true}, function(err, post) {
-                mongodb.close();
-                callback(null, post);
+            collection.insert(post, {safe: true}, function(err) {
+                if(err) {
+                    mongodb.close();
+                    return callback(err);
+                }
+                callback(null);
             });
         });
     });

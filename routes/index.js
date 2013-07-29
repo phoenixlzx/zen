@@ -167,7 +167,7 @@ module.exports = function(app) {
                 return res.redirect('/');
             }
             req.flash('success', 'Posted successfully.');
-            res.redirect('/' + post._id);
+            res.redirect('/');
         });
     });
 
