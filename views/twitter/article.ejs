@@ -60,12 +60,13 @@
                     | Views: <span class="badge badge-important"><%= post.views %></span>
                 </div>
                 <div class="span2 pull-right">
+                    <% if(user) {
                     <% if(user.name === post.name) { %>
                     <a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>/edit" style="text-decoration: none;">
                         <button class="btn btn-small" type="button">Edit</button>
                     </a>
                     <button class="btn btn-danger btn-small" type="button" onclick="confirmDelete()">Delete</button>
-                    <% } %>
+                    <% }} %>
                 </div>
             </div>
             <hr />
