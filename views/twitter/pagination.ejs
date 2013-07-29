@@ -1,11 +1,12 @@
 <br />
 <div class="pagination-centered">
 <ul class="pager">
-    <% if(page-1){ %>
-    <li><a href="?p=<%= page-1 %>">Previous</a></li>
-    <% } %>
     <% if(postsLen>10){ %>
     <li><a href="?p=<%= page+1 %>">Next</a></li>
     <% } %>
+    <% if(page-1){ %>
+    <li><a href="?p=<%= page-1 %>">Previous</a></li>
+    <% } %>
+
 </ul>
 </div>
