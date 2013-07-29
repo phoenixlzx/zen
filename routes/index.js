@@ -183,7 +183,14 @@ module.exports = function(app) {
             req.flash('error', "You do not have permission to do this.");
             return res.redirect('/u/' + req.params.name + '/' + req.params.day + '/' + req.params.url);
         }
-        Post.getRaw(req.params.name, req.params.day, req.params.url, function(err, post){
+        var newUrl = "";
+        if (req.params.url.indexOf('/') === -1) {
+            newUrl = req.params.url;
+        } else {
+            newUrl = req.params.url.replace(/\//g, '%2F');
+            //console.log(url);
+        }
+        Post.getRaw(req.params.name, req.params.day, newUrl, function(err, post){
             if(err){
                 req.flash('error',err);
                 return res.redirect('/');
