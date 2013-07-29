@@ -26,7 +26,7 @@ Demo: [Zenblog](http://zen.phoenixlzx.com:3000)
 - Better theme support (and more themes!) [IN-PROGRESS]
 - Validate user inputs using node-validator
 - Password recovery
-- Split tags by ',' [DONE]
+- <del>Split tags by ','</del> [DONE]
 - i18n
 - Email support
 - Store site-relative configurations in database / JSON file, in order to have a site settings page.
