@@ -18,7 +18,8 @@ Demo: [Zenblog](http://zen.phoenixlzx.com:3000)
 
 5. Done!
 
-**ATTENTION** You **MUST** leave `allowReg` to `true` before you register at least 1 user. You could set it to `false` after you have successfully registered and restart the app.
+**ATTENTION** 
+You **MUST** leave `allowReg` to `true` before you register at least 1 user. You could set it to `false` after you have successfully registered and restart the app.
 
 
 #### TODO
@@ -26,11 +27,13 @@ Demo: [Zenblog](http://zen.phoenixlzx.com:3000)
 - Better theme support (and more themes!) [IN-PROGRESS]
 - Validate user inputs using node-validator
 - Password recovery
-- <del>Split tags by ','</del> [DONE]
+- <del>Split tags by ','</del>
 - i18n
 - Email support
 - Store site-relative configurations in database / JSON file, in order to have a site settings page.
 - Hash password using time criteria at client side to some how avoid Man-In-Middle attacks
 - Draft support
-- Edit/delete support [DONE]
+- <del>Edit/delete support</del>
 - List posts under each tag in Tags page
+
+* DELETED === DONE.
