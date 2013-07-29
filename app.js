@@ -42,14 +42,11 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-routes(app);
+
 
 // Convert URLs
-/*
-var mongodb = require('./models/db.js'),
-    check = require('validator').check,
-    sanitize = require('validator').sanitize;
- function URL(callback) {
+var mongodb = require('./models/db.js');
+function URL(callback) {
     mongodb.open(function (err, db) {
         if (err) {
             return callback(err);
@@ -61,21 +58,23 @@ var mongodb = require('./models/db.js'),
             }
             collection.find(function(err, posts) {
                 posts.each(function(err, doc) {
+                    console.log(doc);
                     if (doc) {
                         var url = "";
                         if (doc.title.indexOf('/') === -1) {
                             url = doc.title;
                         } else {
-                            console.log(doc.title.indexOf('/'));
                             url = doc.title.replace('/', '_');
                             //console.log(url);
                         }
-                        collection.update({"name":doc.name,"time.day":doc.day,"title":doc.title}, {$set:{"url" : url}}, function(err, callback) {
+                        collection.update({"title":doc.title}, {$set:{"url" : url}}, function(err, callback) {
                             if(err) {
+                                console.log("err")
                                 return callback(err);
                             }
-                            mongodb.close();
                         });
+                    } else {
+                        mongodb.close();
                     }
                 });
             });
@@ -84,7 +83,9 @@ var mongodb = require('./models/db.js'),
 }
 URL();
 // Convert URL end
-*/
+
+
+routes(app);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

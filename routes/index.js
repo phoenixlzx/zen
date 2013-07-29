@@ -156,10 +156,13 @@ module.exports = function(app) {
         // console.log(tags);
             // tags = [{"tag":req.body.tag1},{"tag":req.body.tag2},{"tag":req.body.tag3}];
         // trim '/' in title
-        if (check(req.body.title).contains('/')) {
-            var url = req.body.title.replace('/', '_');
+        var url = "";
+        if (req.body.title.indexOf('/') === -1) {
+            url = req.body.title;
         } else {
-            var url = req.body.title;
+            console.log(req.body.title.indexOf('/'));
+            url = req.body.title.replace('/', '_');
+            //console.log(url);
         }
         var md5 = crypto.createHash('md5'),
             email_MD5 = md5.update(currentUser.email.toLowerCase()).digest('hex'),
@@ -223,10 +226,13 @@ module.exports = function(app) {
         });
         // console.log(tags);
         // trim '/' in title
-        if (check(req.body.title).contains('/')) {
-            var url = req.body.title.replace('/', '_');
+        var url = "";
+        if (req.body.title.indexOf('/') === -1) {
+            url = req.body.title;
         } else {
-            var url = req.body.title;
+            console.log(req.body.title.indexOf('/'));
+            url = req.body.title.replace('/', '_');
+            //console.log(url);
         }
         var md5 = crypto.createHash('md5'),
             email_MD5 = md5.update(currentUser.email.toLowerCase()).digest('hex'),
