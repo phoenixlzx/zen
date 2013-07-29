@@ -4,7 +4,9 @@ var crypto = require('crypto'),
     config = require('../config.js'),
     check = require('validator').check,
     sanitize = require('validator').sanitize,
-    RSS = require('rss');
+    RSS = require('rss'),
+    mongo = require('mongodb'),
+    BSON = mongo.BSONPure;
 
 module.exports = function(app) {
     // Get homepage.
@@ -154,19 +156,10 @@ module.exports = function(app) {
         });
         // console.log(tags);
             // tags = [{"tag":req.body.tag1},{"tag":req.body.tag2},{"tag":req.body.tag3}];
-        // trim '/' in title
-        var url = "";
-        if (req.body.title.indexOf('/') === -1) {
-            url = req.body.title;
-        } else {
-            console.log(req.body.title.indexOf('/'));
-            url = req.body.title.replace(/\//g, '%2F');
-            //console.log(url);
-        }
         var md5 = crypto.createHash('md5'),
             email_MD5 = md5.update(currentUser.email.toLowerCase()).digest('hex'),
             avatar = "http://www.gravatar.com/avatar/" + email_MD5 + "?s=64",
-            post = new Post(currentUser.name, avatar, req.body.title, tags, req.body.post, url);
+            post = new Post(currentUser.name, avatar, req.body.title, tags, req.body.post);
         // console.log(currentUser.name);
         post.save(function(err) {
             if(err){
@@ -174,25 +167,20 @@ module.exports = function(app) {
                 return res.redirect('/');
             }
             req.flash('success', 'Posted successfully.');
-            res.redirect('/');
+            res.redirect('/' + post._id);
         });
     });
 
-    app.get('/u/:name/:day/:url/edit', checkLogin, function(req,res){
-        if (req.session.user.name != req.params.name) {
-            req.flash('error', "You do not have permission to do this.");
-            return res.redirect('/u/' + req.params.name + '/' + req.params.day + '/' + req.params.url);
-        }
-        var newUrl = "";
-        if (req.params.url.indexOf('/') === -1) {
-            newUrl = req.params.url;
-        } else {
-            newUrl = req.params.url.replace(/\//g, "%2F");
-        }
-        Post.getRaw(req.params.name, req.params.day, newUrl, function(err, post){
+    app.get('/:id/edit', checkLogin, function(req,res){
+        var ObjectID = new BSON.ObjectID(req.params.id);
+        Post.getRaw(ObjectID, function(err, post){
             if(err){
                 req.flash('error',err);
                 return res.redirect('/');
+            }
+            if (req.session.user.name != post.name) {
+                req.flash('error', "You do not have permission to do this.");
+                return res.redirect('/' + req.params.id);
             }
             var tags = "";
             post.tags.forEach(function(tag) {
@@ -214,13 +202,9 @@ module.exports = function(app) {
         });
     });
 
-    app.post('/u/:name/:day/:url/edit', checkLogin, function(req, res) {
-        if (req.session.user.name != req.params.name) {
-            req.flash('error', "You do not have permission to do this.");
-            return res.redirect('/u/' + req.params.name + '/' + req.params.day + '/' + req.params.url);
-        }
+    app.post('/:id/edit', checkLogin, function(req, res) {
+        var ObjectID = new BSON.ObjectID(req.params.id);
         var currentUser = req.session.user,
-        // TODO split tags by ','
             tag = req.body.tag.split(', '),
             tags = [];
         // console.log(tag);
@@ -231,46 +215,29 @@ module.exports = function(app) {
         });
         // console.log(tags);
         // trim '/' in title
-        var newUrl = "";
-        if (req.body.title.indexOf('/') === -1) {
-            newUrl = req.body.title;
-        } else {
-            newUrl = req.body.title.replace(/\//g, '%2F');
-            //console.log(url);
-        }
         var md5 = crypto.createHash('md5'),
             email_MD5 = md5.update(currentUser.email.toLowerCase()).digest('hex'),
             avatar = "http://www.gravatar.com/avatar/" + email_MD5 + "?s=64",
             post = new Post(currentUser.name, avatar, req.body.title, tags, req.body.post);
         // console.log(currentUser.name);
-        post.edit(currentUser.name, req.params.day, req.params.url, newUrl, post, function(err) {
-            if(err){
+        post.edit(currentUser.name, ObjectID, post, function(err, post) {
+            if(err) {
                 req.flash('error', err);
                 return res.redirect('/');
             }
             //console.log(post);
             req.flash('success', 'Post updated.');
-            res.redirect('/u/' + req.params.name + '/' + req.params.day + '/' + newUrl);
+            res.redirect('/' + req.params.id);
         });
     });
 
-    app.get('/u/:name/:day/:url/delete', checkLogin, function(req, res) {
-        if (req.session.user.name != req.params.name) {
-            req.flash('error', "You do not have permission to do this.");
-            return res.redirect('/u/' + req.params.name + '/' + req.params.day + '/' + req.params.url);
-        }
-        var currentUser = req.session.user,
-            newUrl = "";
-        if (req.params.url.indexOf('/') === -1) {
-            newUrl = req.params.url;
-        } else {
-            newUrl = req.params.url.replace(/\//g, '%2F');
-            //console.log(url);
-        }
-        Post.remove(req.params.name, req.params.day, req.params.url, function(err) {
+    app.get('/:id/delete', checkLogin, function(req, res) {
+        var ObjectID = new BSON.ObjectID(req.paramsid);
+        var currentUser = req.session.user;
+        Post.remove(currentUser.name, ObjectID, function(err) {
             if(err) {
                 req.flash('error', err);
-                return res.redirect('/u/' + req.params.name + '/' + req.params.day + '/' + req.params.url);
+                return res.redirect('/' + req.params.id);
             }
             req.flash('success', 'Post deleted.');
             res.redirect('/');
@@ -372,20 +339,13 @@ module.exports = function(app) {
         });
     });
 
-    app.get('/u/:name/:day/:url', function(req,res){
-        var newUrl = "";
-        if (req.params.url.indexOf('/') === -1) {
-            newUrl = req.params.url;
-        } else {
-            newUrl = req.params.url.replace(/\//g, '%2F');
-            //console.log(url);
-        }
-        Post.getOne(req.params.name, req.params.day, newUrl, function(err, post){
+    app.get('/:id', function(req,res){
+        var ObjectID = new BSON.ObjectID(req.params.id);
+        Post.getOne(ObjectID, function(err, post) {
             if(err){
                 req.flash('error',err);
                 return res.redirect('/');
             }
-            console.log(post);
             res.render('article',{
                 title: post.title + ' - ' + config.siteName,
                 siteName: config.siteName,
@@ -421,7 +381,7 @@ module.exports = function(app) {
                 feed.item({
                     title:  post.title,
                     discription: post.content,
-                    url: config.url + '/u/' + post.name + '/' + post.time.day + '/' + post.url,
+                    url: config.url + '/' + post._id,
                     author: post.name,
                     date: post.time.date
                 });

@@ -62,7 +62,7 @@
                 <div class="span2 pull-right">
                     <% if(user) { %>
                     <% if(user.name === post.name) { %>
-                    <a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.url %>/edit" style="text-decoration: none;">
+                    <a href="/<%= post._id %>/edit" style="text-decoration: none;">
                         <button class="btn btn-small" type="button">Edit</button>
                     </a>
                     <button class="btn btn-danger btn-small" type="button" onclick="confirmDelete()">Delete</button>
@@ -81,7 +81,7 @@
 <script type="text/javascript">
     function confirmDelete() {
         if (confirm("Do you really want to delete this post?\nThis operation cannot be recover.")) {
-            window.location = "/u/<%= post.name %>/<%= post.time.day %>/<%= post.url %>/delete";
+            window.location = "/<%= post._id %>/delete";
         }
     }
 </script>

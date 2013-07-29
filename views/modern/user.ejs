@@ -9,7 +9,7 @@
         <div class="page-region-content">
             <div>
                 <% posts.forEach(function(post, index){ %>
-                <p><h2><a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.url %>"><%= post.title %></a></h2></p>
+                <p><h2><a href="/<%= post._id %>"><%= post.title %></a></h2></p>
                 <p>
                     Author: <a href="/u/<%= post.name %>"><%= post.name %></a> |
                     Date: <%= post.time.minute %>
