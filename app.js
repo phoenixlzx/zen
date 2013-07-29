@@ -43,7 +43,7 @@ if ('development' == app.get('env')) {
 }
 
 
-
+/*
 // Convert URLs
 var mongodb = require('./models/db.js');
 function URL(callback) {
@@ -83,7 +83,7 @@ function URL(callback) {
 }
 URL();
 // Convert URL end
-
+*/
 
 routes(app);
 
