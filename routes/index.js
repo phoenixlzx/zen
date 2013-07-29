@@ -187,8 +187,7 @@ module.exports = function(app) {
         if (req.params.url.indexOf('/') === -1) {
             newUrl = req.params.url;
         } else {
-            newUrl = req.params.url.replace(/\//g, '%2F');
-            //console.log(url);
+            newUrl = req.params.url.replace(/\//g, "%2F");
         }
         Post.getRaw(req.params.name, req.params.day, newUrl, function(err, post){
             if(err){

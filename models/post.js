@@ -278,14 +278,15 @@ Post.getRaw = function(name, day, url, callback) {
             }
             // 根据用户名、发表日期及文章名进行精确查询
             collection.findOne({"name":name,"time.day":day,"url":url},function (err, doc) {
-                mongodb.close();
                 if (err) {
-                    callback(err, null);
+                    mongodb.close();
+                    return callback(err, null);
                 }
                 // return raw markdown text
                 // if(doc){
                 //    doc.content = markdown.toHTML(doc.content);
                 // }
+                mongodb.close();
                 callback(null, doc);
             });
         });
