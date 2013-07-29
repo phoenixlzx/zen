@@ -1,12 +1,13 @@
 var mongodb = require('./db.js'),
     markdown = require('markdown').markdown;
 
-function Post(name, avatar, title, tags, content) {
+function Post(name, avatar, title, tags, content, url) {
     this.name = name;
     this.avatar = avatar;
     this.title = title;
     this.tags = tags;
     this.content = content;
+    this.url = url;
 }
 
 module.exports = Post;
@@ -30,6 +31,7 @@ Post.prototype.save = function(callback) {
         tags: this.tags,
         // content: markdown.toHTML(this.content),  // parse MD to HTML while insert into DB. WARNING: will this cause security problems?
         content: this.content,
+        url: this.url,
         views: 0
     };
 
@@ -51,7 +53,7 @@ Post.prototype.save = function(callback) {
     });
 };
 
-Post.prototype.edit = function(name, day, title, post, callback) {
+Post.prototype.edit = function(name, day, url, post, callback) {
     mongodb.open(function (err, db) {
         if (err) {
             return callback(err);
@@ -62,7 +64,7 @@ Post.prototype.edit = function(name, day, title, post, callback) {
                 return callback(err);
             }
             // console.log(post);
-            collection.update({"name":name,"time.day":day,"title":title}, {$set:{
+            collection.update({"name":name,"time.day":day,"url":url}, {$set:{
                 "title" : post.title,
                 "tags" : post.tags,
                 "content" : post.content
@@ -80,7 +82,7 @@ Post.prototype.edit = function(name, day, title, post, callback) {
     });
 };
 
-Post.remove = function(name, day, title, callback) {
+Post.remove = function(name, day, url, callback) {
     mongodb.open(function(err, db) {
         if(err) {
             return callback(err);
@@ -90,7 +92,7 @@ Post.remove = function(name, day, title, callback) {
                 mongodb.close();
                 return callback(err);
             }
-            collection.remove({"name":name, "time.day":day, "title":title}, true, function(err) {
+            collection.remove({"name":name, "time.day":day, "url":url}, true, function(err) {
                 if(err) {
                     mongodb.close();
                     return callback(err);
@@ -149,7 +151,7 @@ Post.getArchive = function(callback) {
                 return callback(err);
             }
             // return array containing name, time and title.
-            collection.find({},{"name":1,"time":1,"title":1}).sort({
+            collection.find({},{"name":1,"time":1,"title":1,"url":1}).sort({
                 time:-1
             }).toArray(function(err, docs){
                     mongodb.close();
@@ -196,7 +198,7 @@ Post.getTag = function(tag, callback) {
                 return callback(err);
             }
             // return posts containing name, time and title, query by tags.tag
-            collection.find({"tags.tag":tag},{"name":1,"time":1,"title":1}).sort({
+            collection.find({"tags.tag":tag},{"name":1,"time":1,"title":1,"url":1}).sort({
                 time:-1
             }).toArray(function(err, docs) {
                     mongodb.close();
@@ -221,7 +223,7 @@ Post.search = function(keyword, callback) {
                 return callback(err);
             }
             var pattern = new RegExp("^.*"+keyword+".*$", "i");
-            collection.find({"title":pattern},{"name":1,"time":1,"title":1}).sort({
+            collection.find({"title":pattern},{"name":1,"time":1,"title":1,"url":1}).sort({
                 time:-1
             }).toArray(function(err, docs) {
                     mongodb.close();
@@ -235,7 +237,7 @@ Post.search = function(keyword, callback) {
 };
 
 // Get specified post.
-Post.getOne = function(name, day, title, callback) {
+Post.getOne = function(name, day, url, callback) {
     mongodb.open(function (err, db) {
         if (err) {
             return callback(err);
@@ -246,7 +248,7 @@ Post.getOne = function(name, day, title, callback) {
                 return callback(err);
             }
             // 根据用户名、发表日期及文章名进行精确查询
-            collection.findOne({"name":name,"time.day":day,"title":title},function (err, doc) {
+            collection.findOne({"name":name,"time.day":day,"url":url},function (err, doc) {
                 mongodb.close();
                 if (err) {
                     callback(err, null);
@@ -257,13 +259,13 @@ Post.getOne = function(name, day, title, callback) {
                 }
                 callback(null, doc);//返回特定查询的文章
             });
-            collection.update({"name":name,"time.day":day,"title":title},{$inc:{"views":1}}, {w: 0});
+            collection.update({"name":name,"time.day":day,"url":url},{$inc:{"views":1}}, {w: 0});
         });
     });
 };
 
 // Get raw markdown text
-Post.getRaw = function(name, day, title, callback) {
+Post.getRaw = function(name, day, url, callback) {
     mongodb.open(function (err, db) {
         if (err) {
             return callback(err);
@@ -274,7 +276,7 @@ Post.getRaw = function(name, day, title, callback) {
                 return callback(err);
             }
             // 根据用户名、发表日期及文章名进行精确查询
-            collection.findOne({"name":name,"time.day":day,"title":title},function (err, doc) {
+            collection.findOne({"name":name,"time.day":day,"url":url},function (err, doc) {
                 mongodb.close();
                 if (err) {
                     callback(err, null);

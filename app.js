@@ -44,6 +44,47 @@ if ('development' == app.get('env')) {
 
 routes(app);
 
+// Convert URLs
+
+var mongodb = require('./models/db.js'),
+    check = require('validator').check,
+    sanitize = require('validator').sanitize;
+ function URL(callback) {
+    mongodb.open(function (err, db) {
+        if (err) {
+            return callback(err);
+        }
+        db.collection('posts', function(err, collection) {
+            if (err) {
+                mongodb.close();
+                return callback(err);
+            }
+            collection.find(function(err, posts) {
+                posts.each(function(err, doc) {
+                    if (doc) {
+                        var url = "";
+                        if (doc.title.indexOf('/') === -1) {
+                            url = doc.title;
+                        } else {
+                            console.log(doc.title.indexOf('/'));
+                            url = doc.title.replace('/', '_');
+                            //console.log(url);
+                        }
+                        collection.update({}, {$set:{"url" : url}},{multi:true}, function(err, callback) {
+                            if(err) {
+                                return callback(err);
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    });
+}
+URL();
+// Convert URL end
+
+
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });

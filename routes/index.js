@@ -155,10 +155,16 @@ module.exports = function(app) {
         });
         // console.log(tags);
             // tags = [{"tag":req.body.tag1},{"tag":req.body.tag2},{"tag":req.body.tag3}];
+        // trim '/' in title
+        if (check(req.body.title).contains('/')) {
+            var url = req.body.title.replace('/', '_');
+        } else {
+            var url = req.body.title;
+        }
         var md5 = crypto.createHash('md5'),
             email_MD5 = md5.update(currentUser.email.toLowerCase()).digest('hex'),
             avatar = "http://www.gravatar.com/avatar/" + email_MD5 + "?s=64",
-            post = new Post(currentUser.name, avatar, req.body.title, tags, req.body.post);
+            post = new Post(currentUser.name, avatar, req.body.title, tags, req.body.post, url);
         // console.log(currentUser.name);
         post.save(function(err) {
             if(err){
@@ -170,12 +176,12 @@ module.exports = function(app) {
         });
     });
 
-    app.get('/u/:name/:day/:title/edit', checkLogin, function(req,res){
+    app.get('/u/:name/:day/:url/edit', checkLogin, function(req,res){
         if (req.session.user.name != req.params.name) {
             req.flash('error', "You do not have permission to do this.");
-            return res.redirect('/u/' + req.params.name + '/' + req.params.day + '/' + req.params.title);
+            return res.redirect('/u/' + req.params.name + '/' + req.params.day + '/' + req.params.url);
         }
-        Post.getRaw(req.params.name, req.params.day, req.params.title, function(err, post){
+        Post.getRaw(req.params.name, req.params.day, req.params.url, function(err, post){
             if(err){
                 req.flash('error',err);
                 return res.redirect('/');
@@ -187,7 +193,7 @@ module.exports = function(app) {
                 }
             });
             res.render('edit',{
-                title: req.params.title + ' - ' + config.siteName,
+                title: 'Edit post - ' + config.siteName,
                 siteName: config.siteName,
                 tagLine: config.tagLine,
                 allowReg: config.allowReg,
@@ -200,10 +206,10 @@ module.exports = function(app) {
         });
     });
 
-    app.post('/u/:name/:day/:title/edit', checkLogin, function(req, res) {
+    app.post('/u/:name/:day/:url/edit', checkLogin, function(req, res) {
         if (req.session.user.name != req.params.name) {
             req.flash('error', "You do not have permission to do this.");
-            return res.redirect('/u/' + req.params.name + '/' + req.params.day + '/' + req.params.title);
+            return res.redirect('/u/' + req.params.name + '/' + req.params.day + '/' + req.params.url);
         }
         var currentUser = req.session.user,
         // TODO split tags by ','
@@ -216,32 +222,38 @@ module.exports = function(app) {
             }
         });
         // console.log(tags);
+        // trim '/' in title
+        if (check(req.body.title).contains('/')) {
+            var url = req.body.title.replace('/', '_');
+        } else {
+            var url = req.body.title;
+        }
         var md5 = crypto.createHash('md5'),
             email_MD5 = md5.update(currentUser.email.toLowerCase()).digest('hex'),
             avatar = "http://www.gravatar.com/avatar/" + email_MD5 + "?s=64",
             post = new Post(currentUser.name, avatar, req.body.title, tags, req.body.post);
         // console.log(currentUser.name);
-        post.edit(currentUser.name, req.params.day, req.params.title, post, function(err) {
+        post.edit(currentUser.name, req.params.day, req.params.url, post, function(err) {
             if(err){
                 req.flash('error', err);
                 return res.redirect('/');
             }
             //console.log(post);
             req.flash('success', 'Post updated.');
-            res.redirect('/u/' + req.params.name + '/' + req.params.day + '/' + req.params.title);
+            res.redirect('/u/' + req.params.name + '/' + req.params.day + '/' + req.params.url);
         });
     });
 
-    app.get('/u/:name/:day/:title/delete', checkLogin, function(req, res) {
+    app.get('/u/:name/:day/:url/delete', checkLogin, function(req, res) {
         if (req.session.user.name != req.params.name) {
             req.flash('error', "You do not have permission to do this.");
-            return res.redirect('/u/' + req.params.name + '/' + req.params.day + '/' + req.params.title);
+            return res.redirect('/u/' + req.params.name + '/' + req.params.day + '/' + req.params.url);
         }
         var currentUser = req.session.user;
-        Post.remove(req.params.name, req.params.day, req.params.title, function(err) {
+        Post.remove(req.params.name, req.params.day, req.params.url, function(err) {
             if(err) {
                 req.flash('error', err);
-                return res.redirect('/u/' + req.params.name + '/' + req.params.day + '/' + req.params.title);
+                return res.redirect('/u/' + req.params.name + '/' + req.params.day + '/' + req.params.url);
             }
             req.flash('success', 'Post deleted.');
             res.redirect('/');
@@ -343,14 +355,14 @@ module.exports = function(app) {
         });
     });
 
-    app.get('/u/:name/:day/:title', function(req,res){
-        Post.getOne(req.params.name, req.params.day, req.params.title, function(err, post){
+    app.get('/u/:name/:day/:url', function(req,res){
+        Post.getOne(req.params.name, req.params.day, req.params.url, function(err, post){
             if(err){
                 req.flash('error',err);
                 return res.redirect('/');
             }
             res.render('article',{
-                title: req.params.title + ' - ' + config.siteName,
+                title: post.title + ' - ' + config.siteName,
                 siteName: config.siteName,
                 tagLine: config.tagLine,
                 allowReg: config.allowReg,
@@ -384,7 +396,7 @@ module.exports = function(app) {
                 feed.item({
                     title:  post.title,
                     discription: post.content,
-                    url: config.url + '/u/' + post.name + '/' + post.time.day + '/' + post.title,
+                    url: config.url + '/u/' + post.name + '/' + post.time.day + '/' + post.url,
                     author: post.name,
                     date: post.time.date
                 });
