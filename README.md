@@ -27,13 +27,11 @@ You **MUST** leave `allowReg` to `true` before you register at least 1 user. You
 - Better theme support (and more themes!) [IN-PROGRESS]
 - Validate user inputs using node-validator
 - Password recovery
-- <del>Split tags by ','</del>
+- <del>Split tags by ','</del> [DONE]
 - i18n
 - Email support
 - Store site-relative configurations in database / JSON file, in order to have a site settings page.
 - Hash password using time criteria at client side to some how avoid Man-In-Middle attacks
 - Draft support
-- <del>Edit/delete support</del>
+- <del>Edit/delete support</del> [DONE]
 - List posts under each tag in Tags page
-
-* DELETED === DONE.
