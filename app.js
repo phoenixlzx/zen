@@ -45,7 +45,7 @@ if ('development' == app.get('env')) {
 routes(app);
 
 // Convert URLs
-
+/*
 var mongodb = require('./models/db.js'),
     check = require('validator').check,
     sanitize = require('validator').sanitize;
@@ -84,7 +84,7 @@ var mongodb = require('./models/db.js'),
 }
 URL();
 // Convert URL end
-
+*/
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
