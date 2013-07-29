@@ -70,7 +70,7 @@ var mongodb = require('./models/db.js'),
                             url = doc.title.replace('/', '_');
                             //console.log(url);
                         }
-                        collection.update({}, {$set:{"url" : url}},{multi:true}, function(err, callback) {
+                        collection.update({"name":doc.name,"time.day":doc.day,"title":doc.title}, {$set:{"url" : url}}, function(err, callback) {
                             if(err) {
                                 return callback(err);
                             }
