@@ -53,7 +53,7 @@ Post.prototype.save = function(callback) {
     });
 };
 
-Post.prototype.edit = function(name, day, url, post, callback) {
+Post.prototype.edit = function(name, day, url, newUrl,post, callback) {
     mongodb.open(function (err, db) {
         if (err) {
             return callback(err);
@@ -67,7 +67,8 @@ Post.prototype.edit = function(name, day, url, post, callback) {
             collection.update({"name":name,"time.day":day,"url":url}, {$set:{
                 "title" : post.title,
                 "tags" : post.tags,
-                "content" : post.content
+                "content" : post.content,
+                "url": newUrl
             }}, function(err) {
                 if (err) {
                     // console.log(err);

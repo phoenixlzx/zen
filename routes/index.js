@@ -161,7 +161,7 @@ module.exports = function(app) {
             url = req.body.title;
         } else {
             console.log(req.body.title.indexOf('/'));
-            url = req.body.title.replace('/', '_');
+            url = req.body.title.replace('/', '%2F');
             //console.log(url);
         }
         var md5 = crypto.createHash('md5'),
@@ -226,12 +226,12 @@ module.exports = function(app) {
         });
         // console.log(tags);
         // trim '/' in title
-        var url = "";
+        var newUrl = "";
         if (req.body.title.indexOf('/') === -1) {
-            url = req.body.title;
+            newUrl = req.body.title;
         } else {
             console.log(req.body.title.indexOf('/'));
-            url = req.body.title.replace('/', '_');
+            newUrl = req.body.title.replace('/', '%2F');
             //console.log(url);
         }
         var md5 = crypto.createHash('md5'),
@@ -239,14 +239,14 @@ module.exports = function(app) {
             avatar = "http://www.gravatar.com/avatar/" + email_MD5 + "?s=64",
             post = new Post(currentUser.name, avatar, req.body.title, tags, req.body.post);
         // console.log(currentUser.name);
-        post.edit(currentUser.name, req.params.day, req.params.url, post, function(err) {
+        post.edit(currentUser.name, req.params.day, req.params.url, newUrl, post, function(err) {
             if(err){
                 req.flash('error', err);
                 return res.redirect('/');
             }
             //console.log(post);
             req.flash('success', 'Post updated.');
-            res.redirect('/u/' + req.params.name + '/' + req.params.day + '/' + req.params.url);
+            res.redirect('/u/' + req.params.name + '/' + req.params.day + '/' + newUrl);
         });
     });
 
