@@ -25,7 +25,7 @@
                 <% }) %>
             </div>
             <div class="span3">
-                <% if(user) {
+                <% if(user) { %>
                 <% if(user.name === post.name) { %>
                 <a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>/edit" style="text-decoration: none;">
                     <button class="default" type="button">Edit</button>
