@@ -66,7 +66,7 @@
                         <button class="btn btn-small" type="button"><%= __('EDIT') %></button>
                     </a>
                     <form action="/post/<%= post._id %>/delete"
-                          onsubmit="return confirm('You are about to delete this post.\n This operation cannot be undone.');"
+                          onsubmit="return confirm();"
                             method="post" style="display: inline;">
                         <button class="btn btn-danger btn-small" type="submit"><%= __('DELETE') %></button>
                     </form>
