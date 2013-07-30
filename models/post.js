@@ -204,10 +204,11 @@ Post.getTag = function(tag, callback) {
             collection.find({"tags.tag":tag},{"name":1,"time":1,"title":1,"_id":1}).sort({
                 time:-1
             }).toArray(function(err, docs) {
-                    mongodb.close();
+
                     if (err) {
                         callback(err, null);
                     }
+                    mongodb.close();
                     callback(null, docs);
             });
         });
