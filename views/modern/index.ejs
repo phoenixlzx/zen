@@ -17,7 +17,7 @@
                             </a>
                         </div>
                         <div style="padding-left: 20px; padding-top: 5px;">
-                            by <a href="/u/<%= post.name %>"><%= post.name %></a> | Views: <%= post.views %>
+                            by <a href="/u/<%= post.name %>"><%= post.name %></a> | <%= __('VIEWS') %>: <%= post.views %>
                         </div>
                     </div>
                     <div class="page-region">
@@ -27,7 +27,7 @@
                             </div>
                             <div>
                                 <% if(post.tags){ %>
-                                Tags
+                                <%= __('TAGS') %>
                                 <% post.tags.forEach(function(tag, index){ %>
                                 <% if(tag.tag){ %>
                                 <a href="/tags/<%= tag.tag %>"><span class="label inverse"><%= tag.tag %></span></a>

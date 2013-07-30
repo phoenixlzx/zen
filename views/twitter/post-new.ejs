@@ -5,16 +5,15 @@
             <a class="brand" href="/"><%= siteName %></a>
             <div class="nav-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="/archive">Archive</a></li>
-                    <li><a href="/tags">Tags</a></li>
-                    <li><a href="/about">About</a></li>
+                    <li><a href="/archive"><%= __('ARCHIVE') %></a></li>
+                    <li><a href="/tags"><%= __('TAGS') %></a></li>
                 </ul>
                 <ul class="nav navbar-nav pull-right">
-                    <li><p class="navbar-text">Welcome back,
+                    <li><p class="navbar-text"><%= __('WELCOME') %>,
                         <a class="navbar-link" href="/u/<%= user.name %>"><%= user.name %></a>. </p></li>
-                    <li class="active"><a class="navbar-link" href="/post-new">Post new</a></li>
-                    <li><a class="navbar-link" href="/me">My posts</a></li>
-                    <li><a class="navbar-link" href="/logout">Log out</a></li>
+                    <li class="active"><a class="navbar-link" href="/post-new"><%= __('POST_NEW') %></a></li>
+                    <li><a class="navbar-link" href="/me"><%= __('MY_POSTS') %></a></li>
+                    <li><a class="navbar-link" href="/logout"><%= __('LOGOUT') %></a></li>
                     <li><a class="navbar-link" href="/rss"><strong>RSS</strong></a></li>
                 </ul>
             </div>
@@ -34,8 +33,8 @@
     <% } %>
     <div>
         <ul class="breadcrumb">
-            <li><a href="/">Home</a> <span class="divider">/</span></li>
-            <li class="active">Post new</li>
+            <li><a href="/"><%= __('HOME') %></a> <span class="divider">/</span></li>
+            <li class="active"><%= __('POST_NEW') %></li>
         </ul>
     </div>
 <div>
@@ -43,15 +42,15 @@
         <div>
             <form name="post" method="post" onchange="window.onbeforeunload = confirmExit;">
                 <br />
-                <input type="text" name="title" class="input-xlarge" placeholder="Enter title here."  />
+                <input type="text" name="title" class="input-xlarge" placeholder="<%= __('POST_TITLE') %>"  />
                 <br />
-                <input type="text" name="tag" class='input-xlarge' placeholder="Tags, split by ', ' (a comma AND a space)." />
+                <input type="text" name="tag" class='input-xlarge' placeholder="<%= __('POST_TAGS') %>" />
                 <br />
-                <p>Post content goes here. Markdown is supported.
-                    (<a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">Need help?</a>) </p>
+                <p><%= __('MARKDOWN_SUPPORT') %>
+                    (<a href="http://daringfireball.net/projects/markdown/syntax" target="_blank"><%= __('MARKDOWN_HELP') %></a>) </p>
                 <textarea name="post" class='span12' style="min-height: 350px;"></textarea>
                 <br />
-                <input type="submit" class="btn btn-primary" value="Post" onclick="window.onbeforeunload = null;" />
+                <input type="submit" class="btn btn-primary" value="<%= __('POST') %>" onclick="window.onbeforeunload = null;" />
             </form>
         </div>
     </fieldset>
@@ -59,8 +58,7 @@
 </div>
 <script type="text/javascript">
     function confirmExit(){
-        return 'You have entered data on this page.\n' +
-                'If you are going to leave this page, your unsaved changes will be lost.';
+        return "<%= __('CONFIRM_LEAVE') %>";
     }
 </script>
 <%-include footer%>

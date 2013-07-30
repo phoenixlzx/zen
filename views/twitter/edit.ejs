@@ -5,16 +5,15 @@
             <a class="brand" href="/"><%= siteName %></a>
             <div class="nav-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="/archive">Archive</a></li>
-                    <li><a href="/tags">Tags</a></li>
-                    <li><a href="/about">About</a></li>
+                    <li><a href="/archive"><%= __('ARCHIVE') %></a></li>
+                    <li><a href="/tags"><%= __('TAGS') %></a></li>
                 </ul>
                 <ul class="nav navbar-nav pull-right">
-                    <li><p class="navbar-text">Welcome back,
+                    <li><p class="navbar-text"><%= __('WELCOME') %>,
                         <a class="navbar-link" href="/u/<%= user.name %>"><%= user.name %></a>. </p></li>
-                    <li class="active"><a class="navbar-link" href="/post-new">Post new</a></li>
-                    <li><a class="navbar-link" href="/me">My posts</a></li>
-                    <li><a class="navbar-link" href="/logout">Log out</a></li>
+                    <li class="active"><a class="navbar-link" href="/post-new"><%= __('POST_NEW') %></a></li>
+                    <li><a class="navbar-link" href="/me"><%= __('POST_NEW') %></a></li>
+                    <li><a class="navbar-link" href="/logout"><%= __('LOGOUT') %></a></li>
                     <li><a class="navbar-link" href="/rss"><strong>RSS</strong></a></li>
                 </ul>
             </div>
@@ -34,8 +33,8 @@
     <% } %>
     <div>
         <ul class="breadcrumb">
-            <li><a href="/">Home</a> <span class="divider">/</span></li>
-            <li class="active">Edit: <%= post.title %></li>
+            <li><a href="/"><%= __('HOME') %></a> <span class="divider">/</span></li>
+            <li class="active"><%= __('EDIT') %>: <%= post.title %></li>
         </ul>
     </div>
     <div>
@@ -57,8 +56,7 @@
 </div>
 <script type="text/javascript">
     function confirmExit(){
-        return 'You have make changes on this page.\n' +
-                'If you are going to leave this page, your unsaved changes will be lost.';
+        return "<%= __('CONFIRM_LEAVE') %>";
     }
 </script>
 <%-include footer%>

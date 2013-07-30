@@ -2,7 +2,7 @@
 <div class="page" style="width: 900px; margin-top: 40px; margin-bottom: 40px; padding-left: 20px; padding-right: 20px; background-color: #CBCCCC;">
     <div class="page-header" style="border-bottom: 1px #2D89EF solid; padding-bottom: 20px;">
         <div class="page-header-content">
-            <h1>User: <%= user.name %></h1>
+            <h1><%= __('USER') %>: <%= user.name %></h1>
         </div>
     </div>
     <div class="page-region">
@@ -11,11 +11,11 @@
                 <% posts.forEach(function(post, index){ %>
                 <p><h2><a href="/post/<%= post._id %>"><%= post.title %></a></h2></p>
                 <p>
-                    Author: <a href="/u/<%= post.name %>"><%= post.name %></a> |
-                    Date: <%= post.time.minute %>
+                    <%= __('AUTHOR') %>: <a href="/u/<%= post.name %>"><%= post.name %></a> |
+                    <%= __('DATE') %>: <%= post.time.minute %>
                 </p>
                 <p><%- post.post %></p>
-                <p>Views: <%= post.views %></p>
+                <p><%= __('VIEWS') %>: <%= post.views %></p>
                 <% }) %>
             </div>
         </div>

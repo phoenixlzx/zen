@@ -5,20 +5,20 @@
             <a class="brand" href="/"><%= siteName %></a>
             <div class="nav-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="/archive">Archive</a></li>
-                    <li><a href="/tags">Tags</a></li>
+                    <li><a href="/archive"><%= __('ARCHIVE') %></a></li>
+                    <li><a href="/tags"><%= __('TAGS') %></a></li>
                 </ul>
                 <ul class="nav navbar-nav pull-right">
                     <% if(!user) { %>
-                    <li><a href="/login">Login</a></li>
+                    <li><a href="/login"><%= __('LOGIN') %></a></li>
                     <% if(allowReg) { %>
-                    <li><a href="/reg">Register</a></li>
+                    <li><a href="/reg"><%= __('REGISTER') %></a></li>
                     <% }} else { %>
-                    <li><p class="navbar-text">Welcome back,
+                    <li><p class="navbar-text"><%= __('WELCOME') %>,
                         <a class="navbar-link" href="/u/<%= user.name %>"><%= user.name %></a>. </p></li>
-                    <li><a class="navbar-link" href="/post-new">Post new</a></li>
-                    <li><a class="navbar-link" href="/u/<%= user.name %>">My posts</a></li>
-                    <li><a class="navbar-link" href="/logout">Log out</a></li>
+                    <li><a class="navbar-link" href="/post-new"><%= __('POST_NEW') %></a></li>
+                    <li><a class="navbar-link" href="/u/<%= user.name %>"><%= __('MY_POSTS') %></a></li>
+                    <li><a class="navbar-link" href="/logout"><%= __('LOGOUT') %></a></li>
                     <% } %>
                     <li><a class="navbar-link" href="/rss"><strong>RSS</strong></a></li>
                 </ul>
@@ -51,14 +51,14 @@
                 </div>
                 <div class="span5">
                     <% if(post.tags){ %>
-                    Tags
+                    <%= __('TAGS') %>
                     <% post.tags.forEach(function(tag, index){ %>
                     <% if(tag.tag){ %>
                     <a href="/tags/<%= tag.tag %>"><span class="label label-info"><%= tag.tag %></span></a>
                     <% } %>
                     <% }) }%>
                     <br />
-                    Views <span class="badge badge-important"><%= post.views %></span>
+                    <%= __('VIEWS') %> <span class="badge badge-important"><%= post.views %></span>
                     <br />
                 </div>
                 <div class="span10" style="padding-left: 20px;">

@@ -3,7 +3,7 @@
 <div class="page" style="width: 900px; margin-top: 40px; margin-bottom: 40px; padding-left: 20px; padding-right: 20px; background-color: #CBCCCC;">
     <div class="page-header" style="border-bottom: 1px #2D89EF solid; padding-bottom: 20px;">
         <div class="page-header-content">
-            <h1>Edit: <%= post.title %></h1>
+            <h1><%= __('EDIT') %>: <%= post.title %></h1>
         </div>
     </div>
     <div class="page-region">
@@ -19,15 +19,15 @@
                             <input type="text" name="tag" value="<%= tags %>" />
                         </div>
                     </div>
-                    <p>Post content goes here. Markdown is supported.
-                        (<a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">Need help?</a>) </p>
+                    <p><%= __('MARKDOWN_SUPPORT') %>
+                        (<a href="http://daringfireball.net/projects/markdown/syntax" target="_blank"><%= __('MARKDOWN_HELP') %></a>) </p>
                     <div class="input-control textarea">
                         <textarea name="post" style="min-height: 350px;">
                             <%- post.content %>
                         </textarea>
                     </div>
                     <br />
-                    <input type="submit" value="Post" onclick="window.onbeforeunload = null;" />
+                    <input type="submit" value="<%= __('POST') %>" onclick="window.onbeforeunload = null;" />
                 </form>
             </div>
         </div>
@@ -35,8 +35,7 @@
 </div>
 <script type="text/javascript">
     function confirmExit(){
-        return 'You have entered data on this page.\n' +
-                'If you are going to leave this page, your unsaved changes will be lost.';
+        return "<%= __('CONFIRM_LEAVE') %>";
     }
 </script>
 <%-include footer%>

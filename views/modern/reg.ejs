@@ -2,7 +2,7 @@
 <div class="page" style="width: 900px; margin-top: 40px; margin-bottom: 40px; padding-left: 20px; padding-right: 20px; background-color: #CBCCCC;">
     <div class="page-header" style="border-bottom: 1px #2D89EF solid; padding-bottom: 20px;">
         <div class="page-header-content">
-            <h1>Register</h1>
+            <h1><%= __('REGISTER') %></h1>
         </div>
     </div>
     <div class="page-region">
@@ -10,23 +10,23 @@
             <div>
                 <form method="post">
                     <div class="input-control text span4">
-                        <input type="text" id="username" name="username" placeholder="Enter username">
+                        <input type="text" id="username" name="username" placeholder="<%= __('USERNAME') %>">
                         <button class="btn-clear"></button>
                     </div>
                     <div class="input-control text span4">
-                        <input type="text" id="email" name="username" placeholder="Enter E-mail">
+                        <input type="text" id="email" name="username" placeholder="<%= __('EMAIL') %>">
                         <button class="btn-clear"></button>
                     </div>
                     <div class="input-control password span4">
-                        <input type="password" id="password" name="password" placeholder="Password">
+                        <input type="password" id="password" name="password" placeholder="<%= __('PASSWORD') %>">
                         <button class="btn-reveal"></button>
                     </div>
                     <div class="input-control password span4">
-                        <input type="password" id="password-repeat" name="password-repeat" placeholder="Password again">
+                        <input type="password" id="password-repeat" name="password-repeat" placeholder="<%= __('REPEAT_PASSWORD') %>">
                         <button class="btn-reveal"></button>
                     </div>
                     <div>
-                        <input type="submit" value="Register" />
+                        <input type="submit" value="<%= __('REGISTER') %>" />
                     </div>
                 </form>
             </div>
