@@ -57,7 +57,18 @@ module.exports = function(app) {
             password = req.body.password,
             repeatPassword = req.body['password-repeat'];
         // TODO validate user inputs using validator.
-        if(name === '') {
+
+        try {
+            check(name, 'Username cound not be empty.').notEmpty();
+            check(password, 'Paasword could not be empty.').notEmpty();
+            check(repeatPassword, 'Password not equal.').equals(password);
+            check(mail, 'Email is invalid.').len(4, 64).isEmail();
+        } catch (e) {
+            req.flash('error', e.message);
+            return res.redirect('/reg');
+        }
+
+/*        if(name === '') {
             req.flash('error','Username cannot be empty');
             return res.redirect('/reg');
         }
@@ -75,14 +86,14 @@ module.exports = function(app) {
             req.flash('error','Please enter a valid email address.');
             return res.redirect('/reg');
         }
-
+*/
         // get password hash
         var hash = crypto.createHash('sha256'),
             password = hash.update(req.body.password).digest('hex');
         var newUser = new User({
-            name: req.body.username,
+            name: name,
             password: password,
-            email: req.body.email
+            email: mail
         });
         // check if username exists.
         User.get(newUser.name, function(err, user){

@@ -25,7 +25,7 @@ You **MUST** leave `allowReg` to `true` before you register at least 1 user. You
 #### TODO
 
 - Better theme support (and more themes!) [IN-PROGRESS]
-- Validate user inputs using node-validator
+- <del>Validate user inputs using node-validator</del> [DONE]
 - Password recovery
 - <del>Split tags by ','</del> [DONE]
 - i18n
