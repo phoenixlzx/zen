@@ -44,5 +44,7 @@
     "MARKDOWN_HELP": "需要帮助？",
     "POST": "发布",
     "EMAIL": "E-mail",
-    "REPEAT_PASSWORD": "重新输入密码"
+    "REPEAT_PASSWORD": "重新输入密码",
+    "POSTS": "文章",
+    "ACCOUNT": "帐户"
 }

@@ -2,8 +2,6 @@
 
 Zen is a blog app using Node.js & MongoDB, inspired by [yang6233562/y](https://github.com/yang6233562/y).
 
-Pull requests are welcome!
-
 Demo: [Zenblog](http://zen.phoenixlzx.com:3000)
 
 #### Usage
@@ -19,6 +17,7 @@ Demo: [Zenblog](http://zen.phoenixlzx.com:3000)
 5. Done!
 
 **ATTENTION** 
+
 You **MUST** leave `allowReg` to `true` before you register at least 1 user. You could set it to `false` after you have successfully registered and restart the app.
 
 
@@ -28,13 +27,27 @@ You **MUST** leave `allowReg` to `true` before you register at least 1 user. You
 - <del>Validate user inputs using node-validator</del> [DONE]
 - Password recovery
 - <del>Split tags by ','</del> [DONE]
-- <del>i18n</del> [DONE] - More translations needed! See json files in `i18n`
+- <del>i18n</del> [DONE] - More translations needed! See instructions below.
 - Email support
 - Store site-relative configurations in database / JSON file, in order to have a site settings page.
 - Hash password using time criteria at client side to some how avoid Man-In-Middle attacks
 - Draft support
 - <del>Edit/delete support</del> [DONE]
 - List posts under each tag in Tags page
+
+#### Contribute
+
+##### Translate
+
+I hope this project can be available to the massive. Translation works need less knowledge of programming so most people can do this.
+
+Our translation is hosted on [Transifex](https://www.transifex.com/projects/p/zen/), feel free to join us or request new translate team if you want to contribute.
+
+##### Code
+
+Pull requests are always welcome. 
+
+Any help -- a better/simpler way to implement the function, bug report, new idea, new theme.. etc, will be appreciated.
 
 #### License
 

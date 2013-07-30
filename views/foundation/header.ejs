@@ -12,8 +12,62 @@
     <script src="/themes/foundation/js/vendor/custom.modernizr.js"></script>
 </head>
 <body>
-<div class="fixed contain-to-grid">
+<div class="fixed">
     <nav class="top-bar">
-        
+        <ul class="title-area">
+            <li class="name">
+                <h1><a href="#"><%= siteName %></a></h1>
+            </li>
+            <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+        </ul>
+
+        <section class="top-bar-section">
+            <!-- Left Nav Section -->
+            <ul class="left">
+                <li class="divider"></li>
+                <li><a href="/archive"><%= __('ARCHIVE') %></a></li>
+                <li class="divider"></li>
+                <li><a href="/tags"><%= __('TAGS') %></a></li>
+                <li class="divider"></li>
+            </ul>
+            <!-- Right Nav Section -->
+            <ul class="right">
+                <li class="divider hide-for-small"></li>
+                <% if(!user) { %>
+                <li class="divider"></li>
+                <li><a href="/login"><%= __('LOGIN') %></a></li>
+                <li class="divider"></li>
+                <% if(allowReg) { %>
+                <li><a href="/reg"><%= __('REGISTER') %></a></li>
+                <li class="divider"></li>
+                <% }} else { %>
+                <li class="divider"></li>
+                <li class="has-dropdown"><a href="/u/<%= user.name %>"><%= user.name %></a>
+                    <ul class="dropdown">
+                        <li><label><%= __('POSTS') %></label></li>
+                        <li><a href="/post-new"><%= __('POST_NEW') %></a></li>
+                        <li><a href="/u/<%= user.name %>"><%= __('MY_POSTS') %></a></li>
+                        <li class="divider"></li>
+                        <li><label><%= __('ACCOUNT') %></label></li>
+                        <li><a href="/logout"><%= __('LOGOUT') %></a></li>
+                        <li class="divider"></li>
+                    </ul>
+                </li>
+                <li class="divider"></li>
+                <% } %>
+                <li><a href="/rss"><strong>RSS</strong></a></li>
+                <li class="divider"></li>
+            </ul>
+        </section>
     </nav>
 </div>
+<% if (locals.success) { %>
+<div class="alert-box success">
+    <%= success %>
+</div>
+<% } %>
+<% if (locals.error) { %>
+<div class="alert-box alert">
+    <%= error %>
+</div>
+<% } %>

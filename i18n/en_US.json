@@ -44,5 +44,7 @@
     "MARKDOWN_HELP": "Need help?",
     "POST": "Post",
     "EMAIL": "E-mail",
-    "REPEAT_PASSWORD": "Repeat password"
+    "REPEAT_PASSWORD": "Repeat password",
+    "POSTS": "Posts",
+    "ACCOUNT": "Account"
 }

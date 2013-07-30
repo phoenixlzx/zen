@@ -44,5 +44,7 @@
     "MARKDOWN_HELP": "需要協助？",
     "POST": "發布",
     "EMAIL": "電子信箱",
-    "REPEAT_PASSWORD": "重新輸入密碼"
+    "REPEAT_PASSWORD": "重新輸入密碼",
+    "POSTS": "文章",
+    "ACCOUNT": "帳戶"
 }
