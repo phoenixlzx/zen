@@ -31,7 +31,7 @@
                     <button class="default" type="button"><%= __('EDIT') %></button>
                 </a>
                 <form action="/post/<%= post._id %>/delete"
-                      onsubmit="return confirm('You are about to delete this post.\n This operation cannot be undone.');"
+                      onsubmit="return confirm('You are about to delete this post, This operation cannot be undone.\nDo you really want to delete?');"
                       method="post" style="display: inline;">
                     <button class="bg-color-red" type="submit"><%= __('DELETE') %></button>
                 </form>                <% }} %>
