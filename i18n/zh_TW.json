@@ -6,7 +6,7 @@
     "EMAIL_INVALID": "電子信箱無效",
     "USER_EXISTS": "使用者已存在",
     "REG_SUCCESS": "註冊成功",
-    "LOGIN_FAIL": "登入陆失敗",
+    "LOGIN_FAIL": "登入失敗",
     "LOGIN_SUCCESS": "登入成功",
     "POST_SUCCESS": "發布成功",
     "NO_PERMISSION": "您無權進行此操作",
