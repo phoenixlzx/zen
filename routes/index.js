@@ -18,7 +18,7 @@ module.exports = function(app) {
             }
             // console.log(req.session.user);
             res.render('index',{
-                title: 'Home - ' + config.siteName,
+                title: res.__('HOMEPAGE') + ' - ' + config.siteName,
                 siteName: config.siteName,
                 tagLine: config.tagLine,
                 allowReg: config.allowReg,
@@ -36,11 +36,11 @@ module.exports = function(app) {
     app.get('/reg', checkNotLogin, function(req, res) {
         if (!config.allowReg) {
             res.redirect('/');
-            req.flash('Registration is currently not allowed.');
+            req.flash(res.__("REG_NOT_ALLOWED"));
             return;
         }
         res.render('reg',{
-            title: 'Register - ' + config.siteName,
+            title: res.__('REGISTER') + ' - ' + config.siteName,
             siteName: config.siteName,
             tagLine: config.tagLine,
             allowReg: config.allowReg,
@@ -58,12 +58,12 @@ module.exports = function(app) {
             repeatPassword = req.body['password-repeat'];
 
         try {
-            check(name, 'Username cound not be empty.').notEmpty();
-            check(password, 'Paasword could not be empty.').notEmpty();
-            check(repeatPassword, 'Password not equal.').equals(password);
-            check(mail, 'Email is invalid.').len(4, 64).isEmail();
+            check(name, 'USERNAME_EMPTY').notEmpty();
+            check(password, 'PASSWORD_EMPTY').notEmpty();
+            check(repeatPassword, 'PASSWORD_NOT_EQUAL').equals(password);
+            check(mail, 'EMAIL_INVALID').len(4, 64).isEmail();
         } catch (e) {
-            req.flash('error', e.message);
+            req.flash('error', res.__(e.message));
             return res.redirect('/reg');
         }
 
@@ -97,10 +97,10 @@ module.exports = function(app) {
         // check if username exists.
         User.get(newUser.name, function(err, user){
             if(user) {
-                err = 'User exists.';
+                err = 'USER_EXISTS';
             }
             if(err) {
-                req.flash('error', err);
+                req.flash('error', res.__(err));
                 return res.redirect('/reg');
             }
             newUser.save(function(err){
@@ -109,7 +109,7 @@ module.exports = function(app) {
                     return res.redirect('/reg');
                 }
                 req.session.user = newUser; // store user information to session.
-                req.flash('success','Registered successfully.');
+                req.flash('success',res.__('REG_SUCCESS'));
                 res.redirect('/');
             });
         });
@@ -118,7 +118,7 @@ module.exports = function(app) {
     // Login pages
     app.get('/login', checkNotLogin, function(req,res){
         res.render('login',{
-            title: 'Login - ' + config.siteName,
+            title: res.__('LOGIN') + ' - ' + config.siteName,
             siteName: config.siteName,
             tagLine: config.tagLine,
             allowReg: config.allowReg,
@@ -135,19 +135,19 @@ module.exports = function(app) {
         // check login details
         User.get(req.body.username, function(err, user) {
             if(!user || user.password != password) {
-                req.flash('error', 'Login failed');
+                req.flash('error', res.__('LOGIN_FAIL'));
                 return res.redirect('/login');
             }
             // Login success, store user information to session.
             req.session.user = user;
-            req.flash('success','Successfully logged in.');
+            req.flash('success', res.__('LOGIN_SUCCESS'));
             res.redirect('/');
         });
     });
 
     app.get('/post-new', checkLogin, function(req,res) {
         res.render('post-new',{
-            title:'Post new - ' + config.siteName,
+            title: res.__('POST_NEW') + ' - ' + config.siteName,
             siteName: config.siteName,
             tagLine: config.tagLine,
             user: req.session.user,
@@ -179,7 +179,7 @@ module.exports = function(app) {
                 req.flash('error', err);
                 return res.redirect('/');
             }
-            req.flash('success', 'Posted successfully.');
+            req.flash('success', res.__('POST_SUCCESS'));
             res.redirect('/');
         });
     });
@@ -192,7 +192,7 @@ module.exports = function(app) {
                 return res.redirect('/');
             }
             if (req.session.user.name != post.name) {
-                req.flash('error', "You do not have permission to do this.");
+                req.flash('error', res.__('NO_PERMISSION'));
                 return res.redirect('/post/' + req.params.id);
             }
             var tags = "";
@@ -202,7 +202,7 @@ module.exports = function(app) {
                 }
             });
             res.render('edit',{
-                title: 'Edit post - ' + config.siteName,
+                title: res.__('EDIT_POST') + ' - ' + config.siteName,
                 siteName: config.siteName,
                 tagLine: config.tagLine,
                 allowReg: config.allowReg,
@@ -242,7 +242,7 @@ module.exports = function(app) {
                 return res.redirect('/');
             }
             //console.log(post);
-            req.flash('success', 'Post updated.');
+            req.flash('success', res.__('POST_UPDATED'));
             res.redirect('/post/' + req.params.id);
         });
     });
@@ -255,14 +255,14 @@ module.exports = function(app) {
                 req.flash('error', err);
                 return res.redirect('/post/' + req.params.id);
             }
-            req.flash('success', 'Post deleted.');
+            req.flash('success', res.__('POST_DELETED'));
             res.redirect('/');
         })
     });
 
     app.get('/logout', checkLogin, function(req, res) {
         req.session.user = null;
-        req.flash('success','Successfully logged out.');
+        req.flash('success',res.__('LOGOUT_SUCCESS'));
         res.redirect('/');
     });
 
@@ -273,7 +273,7 @@ module.exports = function(app) {
                 return res.redirect('/');
             }
             res.render('archive',{
-                title: 'Archive - ' + config.siteName,
+                title: res.__('ARCHIVE') + ' - ' + config.siteName,
                 siteName: config.siteName,
                 tagLine: config.tagLine,
                 allowReg: config.allowReg,
@@ -293,7 +293,7 @@ module.exports = function(app) {
                 return res.redirect('/');
             }
             res.render('tags',{
-                title: 'Tags - ' + config.siteName,
+                title: res.__('TAGS') + ' - ' + config.siteName,
                 siteName: config.siteName,
                 tagLine: config.tagLine,
                 allowReg: config.allowReg,
@@ -312,7 +312,7 @@ module.exports = function(app) {
                 return res.redirect('/');
             }
             res.render('tag',{
-                title: 'Tag: ' + req.params.tag + ' - ' + config.siteName,
+                title: res.__('TAG') + ': ' + req.params.tag + ' - ' + config.siteName,
                 siteName: config.siteName,
                 tagLine: config.tagLine,
                 allowReg: config.allowReg,
@@ -330,7 +330,7 @@ module.exports = function(app) {
         // check if user exists.
         User.get(req.params.name, function(err, user){
             if(!user){
-                req.flash('error','User not exist.');
+                req.flash('error',res.__('USER_NOT_EXIST'));
                 return res.redirect('/');
             }
             // query for top 10 posts by 'user'.
@@ -340,7 +340,7 @@ module.exports = function(app) {
                     return res.redirect('/');
                 }
                 res.render('user',{
-                    title: 'User: '+ req.params.name + ' - ' + config.siteName,
+                    title: res.__('USER') + ': '+ req.params.name + ' - ' + config.siteName,
                     siteName: config.siteName,
                     tagLine: config.tagLine,
                     allowReg: config.allowReg,
@@ -411,7 +411,7 @@ module.exports = function(app) {
 
     function checkLogin(req, res, next) {
         if(!req.session.user){
-            req.flash('error','You have to login first.');
+            req.flash('error',res.__('LOGIN_NEEDED'));
             return res.redirect('/login');
         }
         next();
@@ -419,7 +419,7 @@ module.exports = function(app) {
 
     function checkNotLogin(req,res,next) {
         if(req.session.user){
-            req.flash('error','You have already logged in.');
+            req.flash('error',res.__('ALREADY_LOGIN'));
             return res.redirect('/');
         }
         next();

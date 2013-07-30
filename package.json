@@ -1,6 +1,6 @@
 {
   "name": "zen",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": true,
   "scripts": {
     "start": "node app.js"
@@ -14,6 +14,7 @@
     "connect-flash": "*",
     "markdown": "*",
     "validator": "*",
-    "rss": "*"
+    "rss": "*",
+    "i18n": "*"
   }
 }

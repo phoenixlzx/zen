@@ -10,5 +10,8 @@ module.exports={
     tagLine: 'Site tagline',
     disqus: 'DQ_ID',
     allowReg: true,
-    theme: 'twitter'
+    theme: 'twitter',
+
+    // i18n settings.
+    language: 'en_US'
 };

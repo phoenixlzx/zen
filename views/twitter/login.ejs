@@ -10,7 +10,9 @@
                 </ul>
                 <ul class="nav navbar-nav pull-right">
                     <li class="active"><a class="navbar-link" href="/login">Login</a></li>
+                    <% if(allowReg) { %>
                     <li><a href="/reg">Register</a></li>
+                    <% } %>
                     <li><a class="navbar-link" href="/rss"><strong>RSS</strong></a></li>
                 </ul>
             </div>

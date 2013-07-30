@@ -9,8 +9,17 @@ var express = require('express')
   , path = require('path')
   , MongoStore = require('connect-mongo')(express)
   , config = require('./config.js')
-  , flash = require('connect-flash');
+  , flash = require('connect-flash')
+  , i18n = require('i18n');
 
+i18n.configure({
+    locales:['en_US', 'zh_CN'],
+    defaultLocale: config.language,
+    directory: './i18n',
+    updateFiles: false,
+    indent: "\t",
+    extension: '.json'
+});
 
 var app = express();
 
@@ -32,6 +41,7 @@ app.use(express.session({
         db: config.db
     })
 }));
+app.use(i18n.init);
 app.use(flash());
 app.use(app.router);
 app.use(require('less-middleware')({ src: __dirname + '/public' }));
@@ -42,48 +52,6 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-
-/*
-// Convert URLs
-var mongodb = require('./models/db.js');
-function URL(callback) {
-    mongodb.open(function (err, db) {
-        if (err) {
-            return callback(err);
-        }
-        db.collection('posts', function(err, collection) {
-            if (err) {
-                mongodb.close();
-                return callback(err);
-            }
-            collection.find(function(err, posts) {
-                posts.each(function(err, doc) {
-                    console.log(doc);
-                    if (doc) {
-                        var url = "";
-                        if (doc.title.indexOf('/') === -1) {
-                            url = doc.title;
-                        } else {
-                            url = doc.title.replace('/', '_');
-                            //console.log(url);
-                        }
-                        collection.update({"title":doc.title}, {$set:{"url" : url}}, function(err, callback) {
-                            if(err) {
-                                console.log("err")
-                                return callback(err);
-                            }
-                        });
-                    } else {
-                        mongodb.close();
-                    }
-                });
-            });
-        });
-    });
-}
-URL();
-// Convert URL end
-*/
 
 routes(app);
 
