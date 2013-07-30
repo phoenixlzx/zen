@@ -258,11 +258,10 @@ Post.getOne = function(id, callback) {
                 }
                 //解析 markdown 为 html
                 if(doc){
-                    mongodb.close();
                     doc.content = markdown.toHTML(doc.content);
                     callback(null, doc);//返回特定查询的文章
                 }
-
+                mongodb.close();
             });
             collection.update({"_id":id},{$inc:{"views":1}}, {w: 0});
         });

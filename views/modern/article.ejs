@@ -30,18 +30,14 @@
                 <a href="/<%= post._id %>/edit" style="text-decoration: none;">
                     <button class="default" type="button">Edit</button>
                 </a>
-                <button class="bg-color-red" type="button" onclick="confirmDelete()">Delete</button>
-                <% }} %>
+                <form action="/<%= post._id %>/delete"
+                      onsubmit="return confirm('You are about to delete this post.\n This operation cannot be undone.');"
+                      method="post" style="display: inline;">
+                    <button class="bg-color-red" type="submit">Delete</button>
+                </form>                <% }} %>
             </div>
         </div>
         <%-include comment%>
     </div>
 </div>
-<script type="text/javascript">
-    function confirmDelete() {
-        if (confirm("Do you really want to delete this post?\nThis operation cannot be recover.")) {
-            window.location = "/<%= post._id %>/delete";
-        }
-    }
-</script>
 <%-include footer%>

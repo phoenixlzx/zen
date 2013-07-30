@@ -56,7 +56,6 @@ module.exports = function(app) {
             mail = req.body.email,
             password = req.body.password,
             repeatPassword = req.body['password-repeat'];
-        // TODO validate user inputs using validator.
 
         try {
             check(name, 'Username cound not be empty.').notEmpty();
@@ -248,8 +247,8 @@ module.exports = function(app) {
         });
     });
 
-    app.get('/:id/delete', checkLogin, function(req, res) {
-        var ObjectID = new BSON.ObjectID(req.paramsid);
+    app.post('/:id/delete', checkLogin, function(req, res) {
+        var ObjectID = new BSON.ObjectID(req.params.id);
         var currentUser = req.session.user;
         Post.remove(currentUser.name, ObjectID, function(err) {
             if(err) {
