@@ -62,10 +62,10 @@
                 <div class="span3 pull-right">
                     <% if(user) { %>
                     <% if(user.name === post.name) { %>
-                    <a href="/<%= post._id %>/edit" style="text-decoration: none;">
+                    <a href="/post/<%= post._id %>/edit" style="text-decoration: none;">
                         <button class="btn btn-small" type="button">Edit</button>
                     </a>
-                    <form action="/<%= post._id %>/delete"
+                    <form action="/post/<%= post._id %>/delete"
                           onsubmit="return confirm('You are about to delete this post.\n This operation cannot be undone.');"
                             method="post" style="display: inline;">
                         <button class="btn btn-danger btn-small" type="submit">Delete</button>

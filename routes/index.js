@@ -184,7 +184,7 @@ module.exports = function(app) {
         });
     });
 
-    app.get('/:id/edit', checkLogin, function(req,res){
+    app.get('/post/:id/edit', checkLogin, function(req,res){
         var ObjectID = new BSON.ObjectID(req.params.id);
         Post.getRaw(ObjectID, function(err, post){
             if(err){
@@ -193,7 +193,7 @@ module.exports = function(app) {
             }
             if (req.session.user.name != post.name) {
                 req.flash('error', "You do not have permission to do this.");
-                return res.redirect('/' + req.params.id);
+                return res.redirect('/post/' + req.params.id);
             }
             var tags = "";
             post.tags.forEach(function(tag) {
@@ -215,7 +215,7 @@ module.exports = function(app) {
         });
     });
 
-    app.post('/:id/edit', checkLogin, function(req, res) {
+    app.post('/post/:id/edit', checkLogin, function(req, res) {
         var ObjectID = new BSON.ObjectID(req.params.id);
         var currentUser = req.session.user,
             tag = req.body.tag.split(', '),
@@ -243,17 +243,17 @@ module.exports = function(app) {
             }
             //console.log(post);
             req.flash('success', 'Post updated.');
-            res.redirect('/' + req.params.id);
+            res.redirect('/post/' + req.params.id);
         });
     });
 
-    app.post('/:id/delete', checkLogin, function(req, res) {
+    app.post('/post/:id/delete', checkLogin, function(req, res) {
         var ObjectID = new BSON.ObjectID(req.params.id);
         var currentUser = req.session.user;
         Post.remove(currentUser.name, ObjectID, function(err) {
             if(err) {
                 req.flash('error', err);
-                return res.redirect('/' + req.params.id);
+                return res.redirect('/post/' + req.params.id);
             }
             req.flash('success', 'Post deleted.');
             res.redirect('/');
@@ -355,7 +355,7 @@ module.exports = function(app) {
         });
     });
 
-    app.get('/:id', function(req,res){
+    app.get('/post/:id', function(req,res){
         var ObjectID = new BSON.ObjectID(req.params.id);
         Post.getOne(ObjectID, function(err, post) {
             if(err){
@@ -397,7 +397,7 @@ module.exports = function(app) {
                 feed.item({
                     title:  post.title,
                     discription: post.content,
-                    url: config.url + '/' + post._id,
+                    url: config.url + '/post/' + post._id,
                     author: post.name,
                     date: post.time.date
                 });
