@@ -45,9 +45,10 @@ Post.prototype.save = function(callback) {
             }
             collection.insert(post, {safe: true}, function(err) {
                 if(err) {
-                    mongodb.close();
+
                     return callback(err);
                 }
+                mongodb.close();
                 callback(null);
             });
         });
@@ -125,10 +126,11 @@ Post.getTen = function(name, page, callback) {
             collection.find(query,{skip:(page - 1)*10,limit:10}).sort({
                 time: -1
             }).toArray(function (err, docs) {
-                mongodb.close();
+
                 if (err) {
                     callback(err, null);
                 }
+                mongodb.close();
                 // Parse Markdown to HTML, if there is security problems
                 // while insert HTML to DB, then use this method. May cause higher load.
                 docs.forEach(function(doc) {

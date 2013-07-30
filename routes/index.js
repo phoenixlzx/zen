@@ -151,6 +151,9 @@ module.exports = function(app) {
             tags = [];
         tag.forEach(function(tag) {
                 if(tag) {
+                    if (tag.indexOf('/') > -1) {
+                        tag = tag.replace(/\//g, '_');
+                    }
                     tags.push({"tag":tag});
                 }
         });
@@ -210,6 +213,9 @@ module.exports = function(app) {
         // console.log(tag);
         tag.forEach(function(tag) {
             if(tag) {
+                if (tag.indexOf('/') > -1) {
+                    tag = tag.replace(/\//g, '_');
+                }
                 tags.push({"tag":tag});
             }
         });
