@@ -28,7 +28,7 @@ You **MUST** leave `allowReg` to `true` before you register at least 1 user. You
 - <del>Validate user inputs using node-validator</del> [DONE]
 - Password recovery
 - <del>Split tags by ','</del> [DONE]
-- i18n
+- <del>i18n</dev> [DONE] - More translations needed! See json files in `i18n`
 - Email support
 - Store site-relative configurations in database / JSON file, in order to have a site settings page.
 - Hash password using time criteria at client side to some how avoid Man-In-Middle attacks
