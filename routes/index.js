@@ -345,6 +345,7 @@ module.exports = function(app) {
                     tagLine: config.tagLine,
                     allowReg: config.allowReg,
                     user: req.session.user,
+                    username: req.params.name,
                     posts: posts,
                     page: page,
                     postsLen: posts.length,
