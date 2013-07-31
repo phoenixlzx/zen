@@ -15,7 +15,7 @@ a:focus {
 
 /* LAYOUT CSS */
 #layout {
-    padding-left: 200px; /* "left col (nav + list)" width */
+    padding-left: 160px; /* "left col (nav + list)" width */
     position: relative;
 }
 
