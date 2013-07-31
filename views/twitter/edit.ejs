@@ -46,7 +46,7 @@
                     <br />
                     <input type="text" name="tag" class='input' value="<%= tags %>" />
                     <br />
-                    <textarea name="post" class='span12' style="min-height: 350px;"><%- post.content %></textarea>
+                    <textarea name="post" class='span12 CodeMirror cm-s-default' style="min-height: 350px;"><%- post.content %></textarea>
                     <br />
                     <input type="submit" class="btn btn-primary" value="<%= __('SAVE') %>" onclick="window.onbeforeunload = null;" />
                 </form>

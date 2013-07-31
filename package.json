@@ -12,7 +12,7 @@
     "mongodb": "*",
     "connect-mongo": "*",
     "connect-flash": "*",
-    "markdown": "*",
+    "marked": "*",
     "validator": "*",
     "rss": "*",
     "i18n": "*"

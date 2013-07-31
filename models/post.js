@@ -1,5 +1,5 @@
 var mongodb = require('./db.js'),
-    markdown = require('markdown').markdown;
+    marked = require('marked');
 
 function Post(name, avatar, title, tags, content) {
     this.name = name;
@@ -134,7 +134,7 @@ Post.getTen = function(name, page, callback) {
                 // Parse Markdown to HTML, if there is security problems
                 // while insert HTML to DB, then use this method. May cause higher load.
                 docs.forEach(function(doc) {
-                    doc.content = markdown.toHTML(doc.content);
+                    doc.content = marked(doc.content);
                 });
                 callback(null, docs);
             });
@@ -259,7 +259,7 @@ Post.getOne = function(id, callback) {
                 }
                 //解析 markdown 为 html
                 if(doc){
-                    doc.content = markdown.toHTML(doc.content);
+                    doc.content = marked(doc.content);
                     callback(null, doc);//返回特定查询的文章
                 }
                 mongodb.close();
