@@ -9,7 +9,7 @@
     <div class="page-region">
         <div class="page-region-content">
             <div>
-                <form name="post" method="post" onchange="window.onbeforeunload = confirmExit;">
+                <form name="post" method="post" onchange="window.onbeforeunload = confirmExit();">
                     <br />
                     <div class="input-control text span4">
                         <input type="text" name="title" value="<%= post.title %>"  />
@@ -22,7 +22,7 @@
                     <p><%= __('MARKDOWN_SUPPORT') %>
                         (<a href="http://daringfireball.net/projects/markdown/syntax" target="_blank"><%= __('MARKDOWN_HELP') %></a>) </p>
                     <div class="input-control textarea">
-                        <textarea name="post" class="CodeMirror cm-s-default" style="min-height: 350px;">
+                        <textarea name="post" class="CodeMirror cm-s-default" style="min-height: 350px; font-size: 14px;">
                             <%- post.content %>
                         </textarea>
                     </div>

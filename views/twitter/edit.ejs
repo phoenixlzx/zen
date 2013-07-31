@@ -40,13 +40,14 @@
     <div>
         <fieldset>
             <div>
-                <form name="post" method="post" onchange="window.onbeforeunload = confirmExit;">
+                <form name="post" method="post" onchange="window.onbeforeunload = confirmExit();">
                     <br />
                     <input type="text" name="title" value="<%= post.title %>"  />
                     <br />
                     <input type="text" name="tag" class='input' value="<%= tags %>" />
                     <br />
-                    <textarea name="post" class='span12 CodeMirror cm-s-default' style="min-height: 350px;"><%- post.content %></textarea>
+                    <label for="post"><%= __('MARKDOWN_SUPPORT') %> (<a href="http://daringfireball.net/projects/markdown/syntax" target="_blank"><%= __('MARKDOWN_HELP') %></a>)</label>
+                    <textarea name="post" class='span12 CodeMirror cm-s-default' style="min-height: 350px; font-size: 14px;"><%- post.content %></textarea>
                     <br />
                     <input type="submit" class="btn btn-primary" value="<%= __('SAVE') %>" onclick="window.onbeforeunload = null;" />
                 </form>

@@ -3,7 +3,7 @@
     "USERNAME_EMPTY": "用户名不能为空",
     "PASSWORD_EMPTY": "密码不能为空",
     "PASSWORD_NOT_EQUAL": "密码不一致",
-    "EMAIL_INVALID": "E-mail 地址非法",
+    "EMAIL_INVALID": "邮件地址不合法",
     "USER_EXISTS": "用户已存在",
     "REG_SUCCESS": "注册成功",
     "LOGIN_FAIL": "登陆失败",

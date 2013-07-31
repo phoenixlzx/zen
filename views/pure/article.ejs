@@ -1,0 +1,109 @@
+<%-include header%>
+<div class="pure-u" id="menu">
+    <div class="pure-menu pure-menu-open">
+        <a class="pure-menu-heading" href="/"><%= siteName %></a>
+
+        <ul>
+
+            <li>
+                <a href="/archive"><%= __('ARCHIVE') %></a>
+            </li>
+
+            <li>
+                <a href="/tags"><%= __('TAGS') %></a>
+            </li>
+
+            <li>
+                <a href="/rss">RSS</a>
+            </li>
+
+            <% if(!user) { %>
+            <li class="menu-item-divided"><a href="/login"><%= __('LOGIN') %></a></li>
+            <% if(allowReg) { %>
+            <li><a href="/reg"><%= __('REGISTER') %></a></li>
+            <% }} else { %>
+            <li class="menu-item-divided">
+                <br /><%= __('WELCOME') %>,<br />
+                <a href="/u/<%= user.name %>"><%= user.name %></a></li>
+            <li><a href="/post-new"><%= __('POST_NEW') %></a></li>
+            <li><a href="/u/<%= user.name %>"><%= __('MY_POSTS') %></a></li>
+            <li><a href="/logout"><%= __('LOGOUT') %></a></li>
+            <% } %>
+
+        </ul>
+    </div>
+</div>
+
+<% if (locals.success) { %>
+<div class="yui3-alert yui3-alert-success" style="letter-spacing: 0;">
+    <%= success %>
+</div>
+<% } %>
+<% if (locals.error) { %>
+<div class="yui3-alert yui3-alert-error" style="letter-spacing: 0;">
+    <%= error %>
+</div>
+<% } %>
+
+<div class="pure-u-1" id="main">
+
+    <div class="header" style="margin: 30px 50px 30px">
+        <h1><%= post.title %></h1>
+        <h2><%= post.time.minute %> by <a href="/u/<%= post.name %>"></a><%= post.name %>&nbsp;|&nbsp;
+            <%= __('TAGS') %>&nbsp;
+            <% post.tags.forEach(function(tag, index){ %>
+            <% if(tag.tag){ %>
+            <a href="/tags/<%= tag.tag %>"><span class="yui3-badge-info"><%= tag.tag %></span></a>&nbsp;
+            <% } %>
+            <% }) %>
+            &nbsp;|&nbsp;
+            <%= __('VIEWS') %>&nbsp;<span class="yui3-badge-success"><%= post.views %></span>
+        </h2>
+    </div>
+
+    <div class="marketing-ribbon">
+        <div class="size-chart l-vbox pure-g">
+            <div class="size-chart-item size-chart-base pure-u" style="width: 16.6666%;">
+                &nbsp;&nbsp;<br />&nbsp;<br />&nbsp;
+            </div>
+            <div class="size-chart-item size-chart-grids pure-u" style="width: 16.6666%;">
+                &nbsp;&nbsp;<br />&nbsp;<br />&nbsp;
+            </div>
+            <div class="size-chart-item size-chart-forms pure-u" style="width: 16.6666%;">
+                &nbsp;&nbsp;<br />&nbsp;<br />&nbsp;
+            </div>
+            <div class="size-chart-item size-chart-buttons pure-u" style="width: 16.6666%;">
+                &nbsp;&nbsp;<br />&nbsp;<br />&nbsp;
+            </div>
+            <div class="size-chart-item size-chart-tables pure-u" style="width: 16.6666%;">
+                &nbsp;&nbsp;<br />&nbsp;<br />&nbsp;
+            </div>
+            <div class="size-chart-item size-chart-menus pure-u" style="width: 16.6666%;">
+                &nbsp;&nbsp;<br />&nbsp;<br />&nbsp;
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <div>
+            <%- post.content %>
+        </div>
+        <% if(user) { %>
+        <% if(user.name === post.name) { %>
+        <hr />
+        <div>
+            <a href="/post/<%= post._id %>/edit" style="text-decoration: none;">
+                <button class="pure-button pure-button-secondary" type="button"><%= __('EDIT') %></button>
+            </a>
+            <form action="/post/<%= post._id %>/delete"
+                  onsubmit="return confirm('You are about to delete this post, This operation cannot be undone.\nDo you really want to delete?');"
+                  method="post" style="display: inline;">
+                <button class="pure-button pure-button-error" type="submit"><%= __('DELETE') %></button>
+            </form>
+        </div>
+        <% }} %>
+        <br />
+        <%-include comment%>
+    </div>
+</div>
+<%-include footer%>

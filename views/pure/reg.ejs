@@ -1,0 +1,101 @@
+<%-include header%>
+<div class="pure-u" id="menu">
+    <div class="pure-menu pure-menu-open">
+        <a class="pure-menu-heading" href="/"><%= siteName %></a>
+
+        <ul>
+
+            <li>
+                <a href="/archive"><%= __('ARCHIVE') %></a>
+            </li>
+
+            <li>
+                <a href="/tags"><%= __('TAGS') %></a>
+            </li>
+
+            <li>
+                <a href="/rss">RSS</a>
+            </li>
+
+            <% if(!user) { %>
+            <li class="menu-item-divided"><a href="/login"><%= __('LOGIN') %></a></li>
+            <% if(allowReg) { %>
+            <li class="pure-menu-selected"><a href="/reg"><%= __('REGISTER') %></a></li>
+            <% }} else { %>
+            <li class="menu-item-divided">
+                <br /><%= __('WELCOME') %>,<br />
+                <a href="/u/<%= user.name %>"><%= user.name %></a></li>
+            <li><a href="/post-new"><%= __('POST_NEW') %></a></li>
+            <li><a href="/u/<%= user.name %>"><%= __('MY_POSTS') %></a></li>
+            <li><a href="/logout"><%= __('LOGOUT') %></a></li>
+            <% } %>
+
+        </ul>
+    </div>
+</div>
+
+<% if (locals.success) { %>
+<div class="yui3-alert yui3-alert-success" style="letter-spacing: 0;">
+    <%= success %>
+</div>
+<% } %>
+<% if (locals.error) { %>
+<div class="yui3-alert yui3-alert-error" style="letter-spacing: 0;">
+    <%= error %>
+</div>
+<% } %>
+
+<div class="pure-u-1" id="main">
+
+    <div class="header" style="margin: 30px 50px 30px">
+        <h1><%= __('REGISTER') %></h1>
+    </div>
+
+    <div class="marketing-ribbon">
+        <div class="size-chart l-vbox pure-g">
+            <div class="size-chart-item size-chart-base pure-u" style="width: 16.6666%;">
+                &nbsp;&nbsp;<br />&nbsp;<br />&nbsp;
+            </div>
+            <div class="size-chart-item size-chart-grids pure-u" style="width: 16.6666%;">
+                &nbsp;&nbsp;<br />&nbsp;<br />&nbsp;
+            </div>
+            <div class="size-chart-item size-chart-forms pure-u" style="width: 16.6666%;">
+                &nbsp;&nbsp;<br />&nbsp;<br />&nbsp;
+            </div>
+            <div class="size-chart-item size-chart-buttons pure-u" style="width: 16.6666%;">
+                &nbsp;&nbsp;<br />&nbsp;<br />&nbsp;
+            </div>
+            <div class="size-chart-item size-chart-tables pure-u" style="width: 16.6666%;">
+                &nbsp;&nbsp;<br />&nbsp;<br />&nbsp;
+            </div>
+            <div class="size-chart-item size-chart-menus pure-u" style="width: 16.6666%;">
+                &nbsp;&nbsp;<br />&nbsp;<br />&nbsp;
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <form method="post" class="pure-form pure-form-aligned">
+            <div class="pure-control-group">
+                <label for="username"><%= __('USERNAME') %></label>
+                <input id="username" type="text" name="username" />
+            </div>
+            <div class="pure-control-group">
+                <label for="email"><%= __('EMAIL') %></label>
+                <input id="email" type="text" name="email" />
+            </div>
+            <div class="pure-control-group">
+                <label for="password"><%= __('PASSWORD') %></label>
+                <input id="password" type="password" name="password" />
+            </div>
+            <div class="pure-control-group">
+                <label for="password-repeat"><%= __('REPEAT_PASSWORD') %></label>
+                <input id="password-repeat" type="password" name="password-repeat" />
+            </div>
+            <div class="pure-controls">
+                <button type="submit" class="pure-button pure-button-primary"><%= __('REGISTER') %></button>
+            </div>
+        </form>
+    </div>
+</div>
+<%-include footer%>
