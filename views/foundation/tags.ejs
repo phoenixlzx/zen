@@ -1,0 +1,17 @@
+<%-include header%>
+<div class="row" style="margin-top: 20px;">
+    <ul class="breadcrumbs">
+        <li><a href="/"><%= __('HOMEPAGE') %></a>
+        <li class="current"><a href="/tags"><%= __('TAGS') %></a></li>
+    </ul>
+</div>
+<div class="row">
+    <div class="large-8 columns">
+        <% posts.forEach(function(tag, index){ %>
+        <% if(tag){ %>
+        <a style="text-decoration: none;" href="/tags/<%= tag %>"><span class="label"><%= tag %></span>&nbsp;</a>
+        <% } %>
+        <% }) %>
+    </div>
+</div>
+<%- include footer %>

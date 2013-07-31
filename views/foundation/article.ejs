@@ -1,0 +1,52 @@
+<%-include header%>
+<div class="row" style="margin-top: 20px;">
+    <ul class="breadcrumbs">
+        <li><a href="/"><%= __('HOMEPAGE') %></a></li>
+        <li><a href="/u/<%= post.name %>"><%= post.name %></a></li>
+        <li class="current"><a href="/post/<%= post._id %>"><%= post.title %></a></li>
+    </ul>
+</div>
+<div>
+    <div>
+        <div class="row">
+            <h2 style="text-align: center"><%= post.title %></h2>
+        </div>
+        <div class="row">
+            <div class="large-7 columns left">
+                <%= __('AUTHOR') %>: <a href="/u/<%= post.name %>"><%= post.name %></a> |
+                <%= __('DATE') %>: <%= post.time.minute %> |
+                <%= __('TAGS') %>:
+                <% post.tags.forEach(function(tag, index){ %>
+                <% if(tag.tag){ %>
+                <a href="/tags/<%= tag.tag %>"><span class="label"><%= tag.tag %></span></a>
+                <% } %>
+                <% }) %>
+                | <%= __('VIEWS') %>: <span class="success label"><%= post.views %></span>
+            </div>
+            <div class="large-3 columns right">
+                <% if(user) { %>
+                <% if(user.name === post.name) { %>
+                <a href="/post/<%= post._id %>/edit" style="text-decoration: none;">
+                    <button class="tiny button secondary" type="button"><%= __('EDIT') %></button>
+                </a>
+                <form action="/post/<%= post._id %>/delete"
+                      onsubmit="return confirm('You are about to delete this post, This operation cannot be undone.\nDo you really want to delete?');"
+                      method="post" style="display: inline;">
+                    <button class="tiny button alert" type="submit"><%= __('DELETE') %></button>
+                </form>
+                <% }} %>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 15px;">
+            <div class="large-8 columns" style="border-bottom: 1px, solid #2BA6CB;">
+                <%- post.content %>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 15px;">
+            <div class="large-8 columns">
+                <%-include comment%>
+            </div>
+        </div>
+    </div>
+</div>
+<%-include footer%>

@@ -1,0 +1,44 @@
+<%-include header%>
+
+<div class="row" style="margin-top: 20px;">
+    <ul class="breadcrumbs">
+        <li><a href="/"><%= __('HOMEPAGE') %></a></li>
+        <li class="current"><a href="/post-new"><%= __('POST_NEW') %></a></li>
+    </ul>
+</div>
+<div>
+    <div>
+        <form name="post" method="post" onchange="window.onbeforeunload = confirmExit;">
+            <div class="row">
+                <div class="large-12 columns">
+                    <label for="title"><%= __('POST_TITLE') %></label>
+                    <input type="text" name="title"  />
+                </div>
+            </div>
+            <div class="row">
+                <div class="large-12 columns">
+                    <label for="tag"><%= __('POST_TAGS') %></label>
+                    <input type="text" name="tag" class='input' />
+                </div>
+            </div>
+            <div class="row">
+                <div class="large-12 columns">
+                    <label for="post"><%= __('MARKDOWN_SUPPORT') %> (<%= __('MARKDOWN_HELP') %>)</label>
+                    <textarea name="post" class='span12' style="min-height: 350px;"></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="large-12 columns">
+                    <input type="submit" class="small button" value="<%= __('POST') %>" onclick="window.onbeforeunload = null;" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function confirmExit(){
+        return "<%= __('CONFIRM_LEAVE') %>";
+    }
+</script>
+<%-include footer%>

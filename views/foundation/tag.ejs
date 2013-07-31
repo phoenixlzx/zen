@@ -1,0 +1,22 @@
+<%-include header%>
+<div class="row" style="margin-top: 20px;">
+    <ul class="breadcrumbs">
+        <li><a href="/"><%= __('HOMEPAGE') %></a>
+        <li><a href="/tags"><%= __('TAGS') %></a></li>
+        <li class="current"><a href="/tag/<%= tag %>"><%= __('TAG') %>: <%= tag %></a></li>
+    </ul>
+</div>
+<div class="row">
+    <div class="large-8 columns">
+        <ul class="no-bullet">
+            <% var lastYear=0 %>
+            <% posts.forEach(function(post, index){ %>
+            <% if(lastYear!=post.time.year){ %>
+            <li><h3><%= post.time.year %></h3></li>
+            <% lastYear=post.time.year } %>
+            <li><time><%= post.time.day %></time> <a style="text-decoration: none;" href="/post/<%= post._id %>"><%= post.title %></a></li>
+            <% }) %>
+        </ul>
+    </div>
+</div>
+<%- include footer %>

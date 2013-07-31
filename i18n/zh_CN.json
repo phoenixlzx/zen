@@ -43,6 +43,7 @@
     "MARKDOWN_SUPPORT": "在此输入正文。支持 Markdown 语法",
     "MARKDOWN_HELP": "需要帮助？",
     "POST": "发布",
+    "SAVE": "保存",
     "EMAIL": "E-mail",
     "REPEAT_PASSWORD": "重新输入密码",
     "POSTS": "文章",

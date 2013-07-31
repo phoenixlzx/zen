@@ -1,0 +1,21 @@
+<%-include header%>
+<div class="row" style="margin-top: 20px;">
+    <ul class="breadcrumbs">
+        <li><a href="/"><%= __('HOMEPAGE') %></a></li>
+        <li class="current"><a href="/u/<%= username %>"><%= __('USER') %>: <%= username %></a></li>
+    </ul>
+</div>
+<div class="row">
+    <div class="large-8 columns">
+        <% posts.forEach(function(post, index){ %>
+        <p><h2><a href="/post/<%= post._id %>"><%= post.title %></a></h2></p>
+        <p>
+            <%= __('AUTHOR') %>: <a href="/u/<%= post.name %>"><%= post.name %></a> |
+            <%= __('DATE') %>: <%= post.time.minute %>
+        </p>
+        <p><%- post.post %></p>
+        <p><%= __('VIEWS') %>: <%= post.views %></p>
+        <% }) %>
+    </div>
+</div>
+<%-include footer%>

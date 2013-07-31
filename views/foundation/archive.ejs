@@ -1,0 +1,19 @@
+<%-include header%>
+<div class="row" style="margin-top: 20px;">
+    <ul class="breadcrumbs">
+        <li><a href="/"><%= __('HOMEPAGE') %></a></li>
+        <li class="current"><a href="/archive"><%= __('ARCHIVE') %></a></li>
+    </ul>
+</div>
+<div class="row">
+    <ul class="no-bullet">
+        <% var lastYear=0 %>
+        <% posts.forEach(function(post, index){ %>
+        <% if(lastYear!=post.time.year){ %>
+        <li><h3><%= post.time.year %></h3></li>
+        <% lastYear=post.time.year } %>
+        <li><time><%= post.time.day %></time> <a href="/post/<%= post._id %>"><%= post.title %></a></li>
+        <% }) %>
+    </ul>
+</div>
+<%-include footer%>

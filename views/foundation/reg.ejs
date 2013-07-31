@@ -1,0 +1,49 @@
+<%-include header%>
+
+<div class="row" style="margin-top: 20px;">
+    <ul class="breadcrumbs">
+        <li><a href="/"><%= __('HOMEPAGE') %></a>
+        <li class="current"><a href="/reg"><%= __('REGISTER') %></a></li>
+    </ul>
+</div>
+<div>
+    <form method="post">
+        <div class="row">
+            <div class="large-6 columns">
+                <div class="small-9 columns">
+                    <input type="text" id="username" name="username" placeholder="<%= __('USERNAME') %>"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="large-6 columns">
+                <div class="small-9 columns">
+                    <input type="text" id="email" name="email" placeholder="<%= __('EMAIL') %>"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="large-6 columns">
+                <div class="small-9 columns">
+                    <input type="password" id="password" name="password" placeholder="<%= __('PASSWORD') %>"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="large-6 columns">
+                <div class="small-9 columns">
+                    <input type="password" id="password-repeat" name="password-repeat" placeholder="<%= __('REPEAT_PASSWORD') %>"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="large-6 columns">
+                <div class="small-6 columns">
+                    <button type="submit" class="small button"><%= __('REGISTER') %></button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<%-include footer%>
