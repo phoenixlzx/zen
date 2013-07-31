@@ -10,7 +10,7 @@ Demo: [Zenblog](http://zen.phoenixlzx.com:3000)
 
 2. `git clone https://github.com/phoenixlzx/zen.git && cd zen && npm install`
 
-3. Edit config.js
+3. Edit `config.js.example` and rename to `config.js`
 
 4. `node app.js`
 
