@@ -12,7 +12,7 @@
             <h2 style="text-align: center"><%= post.title %></h2>
         </div>
         <div class="row">
-            <div class="large-7 columns left">
+            <div class="large-8 columns left">
                 <%= __('AUTHOR') %>: <a href="/u/<%= post.name %>"><%= post.name %></a> |
                 <%= __('DATE') %>: <%= post.time.minute %> |
                 <%= __('TAGS') %>:
@@ -23,7 +23,7 @@
                 <% }) %>
                 | <%= __('VIEWS') %>: <span class="success label"><%= post.views %></span>
             </div>
-            <div class="large-3 columns right">
+            <div class="large-2 columns right">
                 <% if(user) { %>
                 <% if(user.name === post.name) { %>
                 <a href="/post/<%= post._id %>/edit" style="text-decoration: none;">
