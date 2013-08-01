@@ -1,8 +1,10 @@
 {
     "REG_NOT_ALLOWED": "暂未开启注册",
     "USERNAME_EMPTY": "用户名不能为空",
+    "USERNAME_ALPHANUMERIC": "用户名仅可包含字母和数字",
     "PASSWORD_EMPTY": "密码不能为空",
     "PASSWORD_NOT_EQUAL": "密码不一致",
+    "WRONG_PASSWORD": "密码错误",
     "EMAIL_INVALID": "邮件地址不合法",
     "USER_EXISTS": "用户已存在",
     "REG_SUCCESS": "注册成功",
@@ -47,5 +49,7 @@
     "EMAIL": "E-mail",
     "REPEAT_PASSWORD": "重新输入密码",
     "POSTS": "文章",
-    "ACCOUNT": "帐户"
+    "ACCOUNT": "帐户",
+    "USER_UPDATED": "用户信息已更新",
+    "USER_HELP_INFO": "在此处更改您的信息。如果您需要更改密码，请填写「重新输入密码」项。否则您只需在密码区域填入您当前的密码。"
 }

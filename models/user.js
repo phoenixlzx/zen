@@ -65,3 +65,29 @@ User.get = function(name, callback) {
         });
     });
 };
+
+User.edit = function(user, callback) {
+    mongodb.open(function(err, db) {
+        if (err) {
+            return callback(err);
+        }
+        db.collection('users', function(err, collection) {
+            if (err) {
+                mongodb.close();
+                return callback(err);
+            }
+            collection.update({"name":user.name}, {$set : {
+                "name": user.name,
+                "password": user.password,
+                "email": user.email
+            }}, function(err) {
+                if (err) {
+                    mongodb.close();
+                    return callback(err);
+                }
+                mongodb.close();
+                callback(err, user);
+            });
+        });
+    });
+};

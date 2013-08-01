@@ -26,6 +26,7 @@ You **MUST** leave `allowReg` to `true` before you register at least 1 user. You
 - Better theme support (and more themes!) [IN-PROGRESS]
 - <del>Validate user inputs using node-validator</del> [DONE]
 - Password recovery
+- <del>Edit user information</del> [DONE]
 - <del>Split tags by ','</del> [DONE]
 - <del>i18n</del> [DONE] - More translations needed! See instructions below.
 - Email support
@@ -33,7 +34,6 @@ You **MUST** leave `allowReg` to `true` before you register at least 1 user. You
 - Hash password using time criteria at client side to some how avoid Man-In-Middle attacks
 - Draft support
 - <del>Edit/delete support</del> [DONE]
-- List posts under each tag in Tags page
 
 #### Contribute
 

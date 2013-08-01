@@ -59,6 +59,7 @@ module.exports = function(app) {
 
         try {
             check(name, 'USERNAME_EMPTY').notEmpty();
+            check(name, 'USERNAME_ALPHANUMERIC').isAlphanumeric();
             check(password, 'PASSWORD_EMPTY').notEmpty();
             check(repeatPassword, 'PASSWORD_NOT_EQUAL').equals(password);
             check(mail, 'EMAIL_INVALID').len(4, 64).isEmail();
@@ -353,6 +354,67 @@ module.exports = function(app) {
                     error: req.flash('error').toString()
                 });
             });
+        });
+    });
+
+    app.get('/me', checkLogin, function(req, res) {
+        res.render('me',{
+            title: req.session.user.name + ' - ' + config.siteName,
+            siteName: config.siteName,
+            tagLine: config.tagLine,
+            allowReg: config.allowReg,
+            user: req.session.user,
+            success: req.flash('success').toString(),
+            error: req.flash('error').toString()
+        });
+    });
+
+    app.post('/me', checkLogin, function(req, res) {
+        var email = req.body.email,
+            hash = crypto.createHash('sha256'),
+            password = hash.update(req.body.password).digest('hex'),
+            repeatPassword = req.body['password-repeat'],
+            err = '';
+
+        if (repeatPassword != '') {
+            var hash = crypto.createHash('sha256'),
+                repeatPassword = hash.update(repeatPassword).digest('hex');
+            if (repeatPassword != password) {
+                err = 'PASSWORD_NOT_EQUAL';
+            }
+        } else {
+            if (password != req.session.user.password) {
+                err = 'WRONG_PASSWORD';
+            }
+        }
+
+        try {
+            check(email, 'EMAIL_INVALID').len(4, 64).isEmail();
+        } catch (e) {
+            err = e.message;
+        }
+
+        if (err) {
+            req.flash('error', res.__(err));
+            return res.redirect('/me');
+        }
+
+        // get password hash
+        var newUser = new User({
+                name: req.session.user.name,
+                email: email,
+                password: password
+            });
+        console.log(newUser);
+
+        User.edit(newUser, function(err, user){
+            if(err) {
+                req.flash('error', res.__(err));
+                return res.redirect('/me');
+            }
+            req.flash('success', res.__('USER_UPDATED'));
+            req.session.user = null;
+            res.redirect('/login');
         });
     });
 

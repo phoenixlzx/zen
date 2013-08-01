@@ -1,0 +1,80 @@
+<%-include header%>
+<div class="navbar navbar-inverse navbar-fixed-top" style="filter:alpha(opacity=75);-moz-opacity:0.75;opacity:0.75;width:100%;display:block;">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="brand" href="/"><%= siteName %></a>
+            <div class="nav-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/archive"><%= __('ARCHIVE') %></a></li>
+                    <li><a href="/tags"><%= __('TAGS') %></a></li>
+                </ul>
+                <ul class="nav navbar-nav pull-right">
+                    <% if(!user) { %>
+                    <li><a href="/login"><%= __('LOGIN') %></a></li>
+                    <% if(allowReg) { %>
+                    <li><a href="/reg"><%= __('REGISTER') %></a></li>
+                    <% }} else { %>
+                    <li class="active"><p class="navbar-text"><%= __('WELCOME') %>,
+                        <a class="navbar-link" href="/me"><%= user.name %></a>. </p></li>
+                    <li><a class="navbar-link" href="/post-new"><%= __('POST_NEW') %></a></li>
+                    <li><a class="navbar-link" href="/u/<%= user.name %>"><%= __('MY_POSTS') %></a></li>
+                    <li><a class="navbar-link" href="/logout"><%= __('LOGOUT') %></a></li>
+                    <% } %>
+                    <li><a class="navbar-link" href="/rss"><strong>RSS</strong></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <% if (locals.success) { %>
+    <div class="alert alert-success">
+        <%= success %>
+    </div>
+    <% } %>
+    <% if (locals.error) { %>
+    <div class="alert alert-danger">
+        <%= error %>
+    </div>
+    <% } %>
+    <div>
+        <ul class="breadcrumb">
+            <li><a href="/"><%= __('HOMEPAGE') %></a> <span class="divider">/</span></li>
+            <li class="active"><%= user.name %></li>
+        </ul>
+    </div>
+    <div>
+        <form method="post" id="regForm">
+            <fieldset>
+                <div class="control-group">
+                    <label class="control-label"><%= __('USERNAME') %>: <%= user.name %></label>
+                </div>
+                <div class="control-group">
+                    <%= __('USER_HELP_INFO') %>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="email"><%= __('EMAIL') %></label>
+                    <div class="controls">
+                        <input type="text" class="input-xlarge" id="email" name="email" value="<%= user.email %>" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="password"><%= __('PASSWORD') %></label>
+                    <div class="controls">
+                        <input type="password" class="input-xlarge" id="password" name="password">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="password-repeat"><%= __('REPEAT_PASSWORD') %></label>
+                    <div class="controls">
+                        <input type="password" class="input-xlarge" id="password-repeat" name="password-repeat">
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary"><%= __('SAVE') %></button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+<%-include footer%>

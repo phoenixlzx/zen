@@ -1,0 +1,56 @@
+<%-include header%>
+
+<div class="row" style="margin-top: 20px;">
+    <ul class="breadcrumbs">
+        <li><a href="/"><%= __('HOMEPAGE') %></a>
+        <li class="current"><a href="/reg"><%= user.name %></a></li>
+    </ul>
+</div>
+<div>
+    <form method="post">
+        <div class="row">
+            <div class="large-6 columns">
+                <div class="small-9 columns">
+                    <%= __('USER') %>: <%= user.name %>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="large-6 columns">
+                <div class="small-9 columns">
+                    <br /><%= __('USER_HELP_INFO') %><br /><br />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="large-6 columns">
+                <div class="small-9 columns">
+                    <input type="text" id="email" name="email" value="<%= user.email %>"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="large-6 columns">
+                <div class="small-9 columns">
+                    <input type="password" id="password" name="password" placeholder="<%= __('PASSWORD') %>"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="large-6 columns">
+                <div class="small-9 columns">
+                    <input type="password" id="password-repeat" name="password-repeat" placeholder="<%= __('REPEAT_PASSWORD') %>"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="large-6 columns">
+                <div class="small-6 columns">
+                    <button type="submit" class="small button"><%= __('SAVE') %></button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<%-include footer%>

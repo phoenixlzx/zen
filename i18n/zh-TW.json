@@ -1,8 +1,10 @@
 {
     "REG_NOT_ALLOWED": "暫未開放註冊",
     "USERNAME_EMPTY": "使用者名稱不能為空",
+    "USERNAME_ALPHANUMERIC": "使用者名稱僅可以爲字母和數字",
     "PASSWORD_EMPTY": "密碼不能為空",
     "PASSWORD_NOT_EQUAL": "密碼不一致",
+    "WRONG_PASSWORD": "密碼錯誤",
     "EMAIL_INVALID": "電子信箱無效",
     "USER_EXISTS": "使用者已存在",
     "REG_SUCCESS": "註冊成功",
@@ -47,5 +49,7 @@
     "EMAIL": "電子信箱",
     "REPEAT_PASSWORD": "重新輸入密碼",
     "POSTS": "文章",
-    "ACCOUNT": "帳戶"
+    "ACCOUNT": "帳戶",
+    "USER_UPDATED": "使用者信息已變更",
+    "USER_HELP_INFO": "在此更動您的信息。如果您想要更動密碼，請填寫「重新輸入密碼」框。否則您只需在密碼框輸入您當前的密碼。"
 }

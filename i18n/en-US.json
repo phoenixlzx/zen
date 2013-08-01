@@ -1,8 +1,10 @@
 {
     "REG_NOT_ALLOWED": "Registration is currently not allowed.",
     "USERNAME_EMPTY": "Username could not be empty.",
+    "USERNAME_ALPHANUMERIC": "Username could only be alphanumeric.",
     "PASSWORD_EMPTY": "Password could not be empty.",
     "PASSWORD_NOT_EQUAL": "Password not equal.",
+    "WRONG_PASSWORD": "Wrong password",
     "EMAIL_INVALID": "E-mail is invalid.",
     "USER_EXISTS": "User already exists.",
     "REG_SUCCESS": "Successfully registered.",
@@ -47,5 +49,7 @@
     "EMAIL": "E-mail",
     "REPEAT_PASSWORD": "Repeat password",
     "POSTS": "Posts",
-    "ACCOUNT": "Account"
+    "ACCOUNT": "Account",
+    "USER_UPDATED": "User information updated.",
+    "USER_HELP_INFO": "Edit your information here. If you need to change your password, please fill in the 'Repeat password' section. Otherwise you only need to enter your current password in 'Password' section."
 }
