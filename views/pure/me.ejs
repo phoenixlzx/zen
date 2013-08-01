@@ -89,8 +89,13 @@
                 <input id="email" type="text" name="email" value="<%= user.email %>"/>
             </div>
             <div class="pure-control-group">
-                <label for="password"><%= __('PASSWORD') %></label>
+                <label for="password"><%= __('CURRENT_PASSWORD') %></label>
                 <input id="password" type="password" name="password" />
+            </div>
+            <hr />
+            <div class="pure-control-group">
+                <label for="newpass"><%= __('NEW_PASSWORD') %></label>
+                <input id="newpass" type="password" name="newpass" />
             </div>
             <div class="pure-control-group">
                 <label for="password-repeat"><%= __('REPEAT_PASSWORD') %></label>

@@ -5,6 +5,8 @@
     "PASSWORD_EMPTY": "密碼不能為空",
     "PASSWORD_NOT_EQUAL": "密碼不一致",
     "WRONG_PASSWORD": "密碼錯誤",
+    "NEW_PASSWORD": "新密碼",
+    "CURRENT_PASSWORD": "當前密碼",
     "EMAIL_INVALID": "電子信箱無效",
     "USER_EXISTS": "使用者已存在",
     "REG_SUCCESS": "註冊成功",
@@ -51,5 +53,5 @@
     "POSTS": "文章",
     "ACCOUNT": "帳戶",
     "USER_UPDATED": "使用者信息已變更",
-    "USER_HELP_INFO": "在此更動您的信息。如果您想要更動密碼，請填寫「重新輸入密碼」框。否則您只需在密碼框輸入您當前的密碼。"
+    "USER_HELP_INFO": "在此更動您的信息。如果您想要更動密碼，請填寫「新密碼」框。否則您只需在當前密碼框輸入您當前的密碼。"
 }

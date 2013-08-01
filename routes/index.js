@@ -373,33 +373,36 @@ module.exports = function(app) {
         var email = req.body.email,
             hash = crypto.createHash('sha256'),
             password = hash.update(req.body.password).digest('hex'),
+            newPassword = req.body.newpass,
             repeatPassword = req.body['password-repeat'],
-            err = '';
+            inputError = '';
 
-        if (repeatPassword != '') {
+        if (password != req.session.user.password) {
+            inputError = 'WRONG_PASSWORD';
+        }
+        if (repeatPassword || newPassword) {
+            var hash = crypto.createHash('sha256'),
+                newPassword = hash.update(newPassword).digest('hex');
             var hash = crypto.createHash('sha256'),
                 repeatPassword = hash.update(repeatPassword).digest('hex');
-            if (repeatPassword != password) {
-                err = 'PASSWORD_NOT_EQUAL';
+            if (repeatPassword != newPassword) {
+                inputError = 'PASSWORD_NOT_EQUAL';
             }
-        } else {
-            if (password != req.session.user.password) {
-                err = 'WRONG_PASSWORD';
-            }
+            password = newPassword;
         }
+
 
         try {
             check(email, 'EMAIL_INVALID').len(4, 64).isEmail();
         } catch (e) {
-            err = e.message;
+            inputError = e.message;
         }
 
-        if (err) {
-            req.flash('error', res.__(err));
+        if (inputError) {
+            req.flash('error', res.__(inputError));
             return res.redirect('/me');
         }
 
-        // get password hash
         var newUser = new User({
                 name: req.session.user.name,
                 email: email,
