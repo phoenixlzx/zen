@@ -28,7 +28,7 @@ User.prototype.save = function(callback) {
                 mongodb.close;
                 return callback(err);
             }
-
+            console.log(user);
             // insert user data to collection.
             collection.insert(user, {safe: true}, function(err, user) {
                 mongodb.close();
@@ -59,6 +59,38 @@ User.get = function(name, callback) {
                     var user = new User(doc);
                     callback(err, user); // query success, return user data.
                 } else {
+                    callback(err, null); // query failed, return null.
+                }
+            });
+        });
+    });
+};
+
+User.check = function(name, email, callback) {
+    //open database.
+    console.log(name);
+    console.log(email);
+    mongodb.open(function(err, db) {
+        if(err) {
+            return callback(err);
+        }
+        // read users collection.
+        db.collection('users', function(err, collection) {
+            if(err) {
+                mongodb.close();
+                return callback(err);
+            }
+            collection.findOne({ $or : [
+                {name: name},
+                {email: email}
+            ]}, function(err, doc) {
+                if(doc) {
+                    mongodb.close();
+                    var user = new User(doc);
+                    // console.log(user);
+                    callback(err, user); // query success, return user data.
+                } else {
+                    mongodb.close();
                     callback(err, null); // query failed, return null.
                 }
             });

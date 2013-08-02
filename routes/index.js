@@ -96,7 +96,8 @@ module.exports = function(app) {
             email: mail
         });
         // check if username exists.
-        User.get(newUser.name, function(err, user){
+        User.check(newUser.name, newUser.email, function(err, user){
+            console.log(user);
             if(user) {
                 err = 'USER_EXISTS';
             }
