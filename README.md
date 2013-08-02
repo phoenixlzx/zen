@@ -16,10 +16,8 @@ Demo: [Zenblog](http://zen.phoenixlzx.com:3000)
 
 5. Done!
 
-**ATTENTION** 
-
-You **MUST** leave `allowReg` to `true` before you register at least 1 user. You could set it to `false` after you have successfully registered and restart the app.
-
+**ATTENTION** : You **MUST** leave `allowReg` to `true` before you register at least 1 user. You could set it to `false` after you have successfully registered and then reload the app.
+Usable translation: see `i18n` directory.
 
 #### TODO
 
@@ -42,6 +40,13 @@ You **MUST** leave `allowReg` to `true` before you register at least 1 user. You
 I hope this project can be available to the massive. Translation works need less knowledge of programming so most people can do this.
 
 Our translation is hosted on [Transifex](https://www.transifex.com/projects/p/zen/), feel free to join us or request new translate team if you want to contribute.
+
+**Current translators (ordered by submit time, special thanks to them!) :**
+
+- en-US & zh-CN: myself.
+- zh-TW: @bcbcarl
+- vi: @bizover
+- ja-JP: @lexdene
 
 ##### Code
 
