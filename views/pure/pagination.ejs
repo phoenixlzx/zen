@@ -1,10 +1,10 @@
 <div>
     <ul class="pure-paginator">
         <% if(page-1){ %>
-        <li><a href="?p=<%= page-1 %>" class=""><button class="pure-button prev"><%= __('PREVIOUS') %></button></a></li>
+        <li><button class="pure-button prev"><a href="?p=<%= page-1 %>"><%= __('PREVIOUS') %></a></button></li>
         <% } %>
         <% if(postsLen>=10){ %>
-        <li><a href="?p=<%= page+1 %>" class=""><button class="pure-button next"><%= __('NEXT') %></button></a></li>
+        <li><button class="pure-button next"><a href="?p=<%= page+1 %>"><%= __('NEXT') %></a></button></li>
         <% } %>
     </ul>
 </div>
