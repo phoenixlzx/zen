@@ -13,5 +13,5 @@ module.exports={
     theme: 'twitter',
 
     // i18n settings.
-    language: 'en-US'
+    language: 'en-us'
 };
