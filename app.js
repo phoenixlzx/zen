@@ -13,7 +13,7 @@ var express = require('express')
   , i18n = require('i18n');
 
 i18n.configure({
-    locales:['en-US', 'zh-CN', 'zh-TW', 'ja-JP'],
+    locales:['en-US', 'zh-CN', 'zh-TW', 'ja-JP', 'vi'],
     defaultLocale: config.language,
     directory: './i18n',
     updateFiles: false,
