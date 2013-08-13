@@ -1,17 +1,17 @@
 module.exports={
-    // Database configuration.
+    // Database configuration. Change them before start the app.
     cookieSecret:'CookieSecret',
-    db:'zen-dev',
+    db:'zen',
     host:'localhost',
 
-    // Site configuration.
+    // Site configuration. Change them before start the app.
     url: 'http://www.example.com',
     siteName: 'Site Name',
     tagLine: 'Site tagline',
     disqus: 'DQ_ID',
     allowReg: true,
-    theme: 'twitter',
+    theme: 'twitter', // Choose your theme under `./views` directory.
 
     // i18n settings.
-    language: 'en-us'
+    language: 'en-us' // Available languages are under `./i18n` directory. 
 };
