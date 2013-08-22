@@ -33,6 +33,7 @@
         </ul>
     </div>
 </div>
+</div>
 
 <% if (locals.success) { %>
 <div class="yui3-alert yui3-alert-success" style="letter-spacing: 0;">
@@ -94,7 +95,7 @@
                 <!-- A single blog post -->
                 <section class="post">
                     <header class="post-header">
-                        <img class="post-avatar" src="<%= post.avatar %>" height="64" width="64">
+                        <img class="post-avatar" src="<%= post.avatar %>" height="64" width="64" />
 
                         <h2 class="post-title"><a href="/post/<%= post._id %>" style="text-decoration: none;"><%= post.title %></a></h2>
 
