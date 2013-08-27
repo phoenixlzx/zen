@@ -161,6 +161,10 @@ module.exports = function(app) {
         var currentUser = req.session.user,
             tag = req.body.tag.split(', '),
             tags = [];
+        if (req.body.title === '') {
+            req.flash('error', res.__('TITLE_EMPTY'));
+            return res.redirect('/post-new');
+        }
         tag.forEach(function(tag) {
                 if(tag) {
                     if (tag.indexOf('/') > -1) {
@@ -223,6 +227,10 @@ module.exports = function(app) {
             tag = req.body.tag.split(', '),
             tags = [];
         // console.log(tag);
+        if (req.body.title === '') {
+            req.flash('error', res.__('TITLE_EMPTY'));
+            return res.redirect('/post/' + req.params.id);
+        }
         tag.forEach(function(tag) {
             if(tag) {
                 if (tag.indexOf('/') > -1) {
