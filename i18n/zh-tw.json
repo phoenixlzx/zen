@@ -54,5 +54,6 @@
     "ACCOUNT": "帳戶",
     "USER_UPDATED": "使用者信息已變更",
     "USER_HELP_INFO": "在此更動您的信息。如果您想要更動密碼，請填寫「新密碼」框。否則您只需在當前密碼框輸入您當前的密碼。",
-    "TITLE_EMPTY": "標題不能爲空。"
+    "TITLE_EMPTY": "標題不能爲空。",
+    "CONTENT_EMPTY": "內容不能爲空。"
 }

@@ -54,5 +54,6 @@
     "ACCOUNT": "Account",
     "USER_UPDATED": "User information updated.",
     "USER_HELP_INFO": "Edit your information here. If you need to change your password, please fill in the 'New password' section. Otherwise you only need to enter your current password in 'Current password' section.",
-    "TITLE_EMPTY": "Title could not be empty."
+    "TITLE_EMPTY": "Title could not be empty.",
+    "CONTENT_EMPTY": "Content could not be empty."
 }

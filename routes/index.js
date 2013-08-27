@@ -165,6 +165,10 @@ module.exports = function(app) {
             req.flash('error', res.__('TITLE_EMPTY'));
             return res.redirect('/post-new');
         }
+        if (!req.body.post) {
+            req.flash('error', res.__('CONTENT_EMPTY'));
+            return res.redirect('/post-new');
+        }
         tag.forEach(function(tag) {
                 if(tag) {
                     if (tag.indexOf('/') > -1) {
@@ -229,6 +233,10 @@ module.exports = function(app) {
         // console.log(tag);
         if (req.body.title === '') {
             req.flash('error', res.__('TITLE_EMPTY'));
+            return res.redirect('/post/' + req.params.id);
+        }
+        if (!req.body.post) {
+            req.flash('error', res.__('CONTENT_EMPTY'));
             return res.redirect('/post/' + req.params.id);
         }
         tag.forEach(function(tag) {
