@@ -43,10 +43,11 @@ Our translation is hosted on [Transifex](https://www.transifex.com/projects/p/ze
 
 **Current translators (ordered by submit time, special thanks to them!) :**
 
-- en-US & zh-CN: myself.
-- zh-TW: @bcbcarl
+- en-us & zh-cn: myself.
+- zh-tw: @bcbcarl
 - vi: @bizover
-- ja-JP: @lexdene
+- ja-jp: @lexdene
+- tr: @bbuyukguzel
 
 ##### Code
 
