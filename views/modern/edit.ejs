@@ -22,9 +22,8 @@
                     <p><%= __('MARKDOWN_SUPPORT') %>
                         (<a href="http://daringfireball.net/projects/markdown/syntax" target="_blank"><%= __('MARKDOWN_HELP') %></a>) </p>
                     <div class="input-control textarea">
-                        <textarea name="post" class="CodeMirror cm-s-default" style="min-height: 350px; font-size: 14px;">
-                            <%- post.content %>
-                        </textarea>
+                        <textarea name="post" style="display: none;"><%- post.content %></textarea>
+                        <div id="epiceditor" style="min-height: 350px; margin-bottom: 10px;"></div>
                     </div>
                     <br />
                     <input type="submit" value="<%= __('SAVE') %>" onclick="window.onbeforeunload = null;" />

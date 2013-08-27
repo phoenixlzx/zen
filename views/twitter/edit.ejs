@@ -47,7 +47,8 @@
                     <input type="text" name="tag" class='input' value="<%= tags %>" />
                     <br />
                     <label for="post"><%= __('MARKDOWN_SUPPORT') %> (<a href="http://daringfireball.net/projects/markdown/syntax" target="_blank"><%= __('MARKDOWN_HELP') %></a>)</label>
-                    <textarea name="post" class='span12 CodeMirror cm-s-default' style="min-height: 350px; font-size: 14px;"><%- post.content %></textarea>
+                    <textarea name="post" style="display: none;"><%- post.content %></textarea>
+                    <div id="epiceditor" style="min-height: 350px; margin-bottom: 10px;"></div>
                     <br />
                     <input type="submit" class="btn btn-primary" value="<%= __('SAVE') %>" onclick="window.onbeforeunload = null;" />
                 </form>

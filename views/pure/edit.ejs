@@ -86,7 +86,8 @@
             </div>
             <div class="pure-control-group">
                 <label for="post"><%= __('MARKDOWN_SUPPORT') %> (<a href="http://daringfireball.net/projects/markdown/syntax" target="_blank"><%= __('MARKDOWN_HELP') %></a>)</label>
-                <textarea name="post" id="post" class='pure-u-1 CodeMirror cm-s-default' style="min-height: 350px; font-size: 14px;"><%- post.content %></textarea>
+                <textarea name="post" id="post" style="display: none;"><%- post.content %></textarea>
+                <div id="epiceditor" style="min-height: 350px; margin-bottom: 10px;"></div>
             </div>
             <div class="pure-controls">
                 <input type="submit" class="pure-button pure-button-primary" value="<%= __('SAVE') %>" onclick="window.onbeforeunload = null;" />
