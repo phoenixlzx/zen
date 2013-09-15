@@ -1,6 +1,6 @@
 ### Zen
 
-Zen is a blog app using Node.js & MongoDB, inspired by [yang6233562/y](https://github.com/yang6233562/y).
+Zen is a blog app using Node.js & MongoDB.
 
 Demo: [Zenblog](http://zen.phoenixlzx.com:3000)
 
