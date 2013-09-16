@@ -2,7 +2,7 @@
 
 Zen is a blog app using Node.js & MongoDB.
 
-Demo: [Zenblog](http://zen.phoenixlzx.com:3000)
+Demo: [Zenblog](http://zen.phoenixlzx.com)
 
 #### Usage
 
